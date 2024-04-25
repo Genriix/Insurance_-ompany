@@ -24,23 +24,27 @@ namespace Insurance_сompany
         {
             InitializeComponent();
             CapOut.IsEnabled = false; // Делаем текстбокс не активным
-            CaptureIsGenerate = false;
+            CaptureIsGenerate = false; // Мы не проходили капчу
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder errors = new StringBuilder();
+            StringBuilder errors = new StringBuilder(); // Инициализируем экземпляр класса стрингБилдер
+
+            /// Заполняем эклемпляр ошибками если есть
 
             if (Login.Text.ToLower() != "user") errors.AppendLine("Неправильное имя пользователя");
             if (Password.Password != "user") errors.AppendLine("Неправильный пароль");
             if (CaptureIsGenerate == false) errors.AppendLine("Пройдите тест CAPTCHA");
             else if (CheckSequence() != true) errors.AppendLine("Повторите тест CAPTCHA") ;
-            if (errors.Length > 0)
+            if (errors.Length > 0) //Выводи ошибки если есть
             {
                 MessageBox.Show(errors.ToString(), "Пiшов нахуй москаль ебучий" );
                 CapOut.Text = "";
-                return;
+                return; // Завершаем исполнение метода
             }
+
+            /// Если всё ок, и мы не попались на ловушку ошибок, то отчищаем поля и переходим на следующую страницу
 
             Login.Text = "";
             Password.Password = "";
