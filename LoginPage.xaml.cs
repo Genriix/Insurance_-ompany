@@ -79,7 +79,7 @@ namespace Insurance_сompany
 
         private bool CheckSequence()
         {
-            /// Сравниваем ордин тестбокс с другим
+            /// Сравниваем один тестбокс с другим
             if (CapOut.Text == CapIn.Text && CaptureIsGenerate) {  return true; } // Если да, то возвращаем тру
             else { return false; } // Если нет, то нет
         }
