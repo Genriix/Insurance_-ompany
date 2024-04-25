@@ -33,8 +33,8 @@ namespace Insurance_сompany
 
             if (Login.Text.ToLower() != "user") errors.AppendLine("Неправильное имя пользователя");
             if (Password.Password != "user") errors.AppendLine("Неправильный пароль");
-            if (CaptureIsGenerate == false) errors.AppendLine("Проведите тест CAPTCHA");
-            else if (CheckSequence() != true) errors.AppendLine("Повотрите тест CAPTCHA") ;
+            if (CaptureIsGenerate == false) errors.AppendLine("Пройдите тест CAPTCHA");
+            else if (CheckSequence() != true) errors.AppendLine("Повторите тест CAPTCHA") ;
             if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString(), "Пiшов нахуй москаль ебучий" );
@@ -53,6 +53,7 @@ namespace Insurance_сompany
 
         /// Реализация капчи
 
+        private bool CaptureIsGenerate { get; set; } // Создаём приватное поле с типом данных true/false
         private string GenerateRandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Создаём константу с буковами и цыферами
@@ -78,8 +79,5 @@ namespace Insurance_сompany
             if (CapOut.Text == CapIn.Text && CaptureIsGenerate) {  return true; } // Если да, то возвращаем тру
             else { return false; } // Если нет, то нет
         }
-
-        private bool CaptureIsGenerate { get; set; }
-
     }
 }
