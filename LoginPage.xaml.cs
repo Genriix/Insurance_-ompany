@@ -23,55 +23,63 @@ namespace Insurance_сompany
         public LoginPage()
         {
             InitializeComponent();
+            CapOut.IsEnabled = false; // Делаем текстбокс не активным
+            CaptureIsGenerate = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string log = Login.Text.ToLower();
+            StringBuilder errors = new StringBuilder();
 
-            if (log == "user" && Password.Password == "user" && CheckSequence())
+            if (Login.Text.ToLower() != "user") errors.AppendLine("Неправильное имя пользователя");
+            if (Password.Password != "user") errors.AppendLine("Неправильный пароль");
+            if (CaptureIsGenerate == false) errors.AppendLine("Проведите тест CAPTCHA");
+            else if (CheckSequence() != true) errors.AppendLine("Повотрите тест CAPTCHA") ;
+            if (errors.Length > 0)
             {
-                Login.Text = "";
-                Manager.MainFrame.Navigate(new UserPage());
+                MessageBox.Show(errors.ToString(), "Пiшов нахуй москаль ебучий" );
+                CapOut.Text = "";
+                return;
             }
-            else { }
+
+            Login.Text = "";
+            Password.Password = "";
+            Manager.MainFrame.Navigate(new UserPage());
+            CapOut.Text = "";
+            CapIn.Text = "";
+            CaptureIsGenerate = false;
         }
 
+
+        /// Реализация капчи
+
+        private string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Создаём константу с буковами и цыферами
+            StringBuilder sb = new StringBuilder(); // Инициализируем экземпляр класса СтрингБилдер
+            Random random = new Random(); // Инициализируем экземпляр класса Рандом
+
+            for (int i = 0; i < length; i++)
+            {
+                sb.Append(chars[random.Next(chars.Length)]); // Добавляем в экземпляр класса стирнгБилдер заданное количество случайных цыфарок и буковок
+            }
+            CaptureIsGenerate = true;
+            return sb.ToString(); // Возвращаем строковую случайную последовательность символов
+        }
         private void GenerateRandomSequence(object sender, RoutedEventArgs e)
         {
-            string randomSequence = GenerateRandomString(6);
-            CapOut.Text = randomSequence;
-            CapOut.IsEnabled = false;
+            string randomSequence = GenerateRandomString(6); // Инициализируем экемпляр функции генерации случайной последовательности символов
+            CapOut.Text = randomSequence; // Записываем экземпляр функции в текстбокс
         }
 
         private bool CheckSequence()
         {
-            if (CapOut.Text == CapIn.Text)
-            {
-                CapOut.Text = "";
-                CapIn.Text = "";
-                return true;
-            }
-            else
-            {
-                CapOut.Text = "";
-                CapIn.Text = "";
-                return false;
-            }
+            /// Сравниваем ордин тестбокс с другим
+            if (CapOut.Text == CapIn.Text && CaptureIsGenerate) {  return true; } // Если да, то возвращаем тру
+            else { return false; } // Если нет, то нет
         }
 
-        private string GenerateRandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            StringBuilder sb = new StringBuilder();
-            Random random = new Random();
+        private bool CaptureIsGenerate { get; set; }
 
-            for (int i = 0; i < length; i++)
-            {
-                sb.Append(chars[random.Next(chars.Length)]);
-            }
-
-            return sb.ToString();
-        }
     }
 }
