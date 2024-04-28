@@ -1,0 +1,767 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище InsuranceCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "InsuranceCompany.dbo.Individual_User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Individual_User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="F_Name" />
+            <PropertyRef Name="L_Name" />
+            <PropertyRef Name="M_Name" />
+            <PropertyRef Name="Burth_Date" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="F_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="L_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="M_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Burth_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Insurance_Manager">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Telephone_Number" Type="bigint" Nullable="false" />
+          <Property Name="F_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="L_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="M_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Insurance_Policy">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type_Insurance_Id" Type="int" Nullable="false" />
+          <Property Name="User_Type_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Insurance_Prize" Type="money" Nullable="false" />
+          <Property Name="Insurance_Object" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Insurance_Case" Type="xml" Nullable="false" />
+          <Property Name="Insurance_Sum" Type="money" Nullable="false" />
+          <Property Name="Date_Of_Conclusion" Type="date" Nullable="false" />
+          <Property Name="Date_Of_Registration" Type="datetime" Nullable="false" />
+          <Property Name="Date_Start" Type="date" Nullable="false" />
+          <Property Name="Date_End" Type="date" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "InsuranceCompany.dbo.Legal_User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Legal_User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Legal_Address" />
+            <PropertyRef Name="MSRN" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Legal_Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MSRN" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type_Insurance_Id" Type="int" Nullable="false" />
+          <Property Name="User_Type_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Insurance_Object" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Filing_Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type_Insurance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Document_Path" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Telephone_Number" Type="bigint" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Bank" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Payment_Account" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Individual_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Individual_User" Type="Self.Individual_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Individual_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_Type_Insurance">
+          <End Role="Type_Insurance" Type="Self.Type_Insurance" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Insurance">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="Type_Insurance_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_User_Type">
+          <End Role="User_Type" Type="Self.User_Type" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Legal_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Legal_User" Type="Self.Legal_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Legal_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Type_Insurance">
+          <End Role="Type_Insurance" Type="Self.Type_Insurance" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Insurance">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Type_Insurance_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User_Type">
+          <End Role="User_Type" Type="Self.User_Type" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_User_Type">
+          <End Role="User_Type" Type="Self.User_Type" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище InsuranceCompanyModelContainer">
+          <EntitySet Name="Insurance_Manager" EntityType="Self.Insurance_Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insurance_Policy" EntityType="Self.Insurance_Policy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Insurance" EntityType="Self.Type_Insurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Type" EntityType="Self.User_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Individual_User" EntityType="Self.Individual_User" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Individual_User].[User_Id] AS [User_Id], 
+    [Individual_User].[F_Name] AS [F_Name], 
+    [Individual_User].[L_Name] AS [L_Name], 
+    [Individual_User].[M_Name] AS [M_Name], 
+    [Individual_User].[Burth_Date] AS [Burth_Date]
+    FROM [dbo].[Individual_User] AS [Individual_User]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Legal_User" EntityType="Self.Legal_User" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Legal_User].[User_Id] AS [User_Id], 
+    [Legal_User].[Name] AS [Name], 
+    [Legal_User].[Legal_Address] AS [Legal_Address], 
+    [Legal_User].[MSRN] AS [MSRN]
+    FROM [dbo].[Legal_User] AS [Legal_User]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Individual_User_User" Association="Self.FK_Individual_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Individual_User" EntitySet="Individual_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_Statuses" Association="Self.FK_Insurance_Policy_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_Type_Insurance" Association="Self.FK_Insurance_Policy_Type_Insurance">
+            <End Role="Type_Insurance" EntitySet="Type_Insurance" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_User" Association="Self.FK_Insurance_Policy_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_User_Type" Association="Self.FK_Insurance_Policy_User_Type">
+            <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Legal_User_User" Association="Self.FK_Legal_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Legal_User" EntitySet="Legal_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Type_Insurance" Association="Self.FK_Order_Type_Insurance">
+            <End Role="Type_Insurance" EntitySet="Type_Insurance" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User_Type" Association="Self.FK_Order_User_Type">
+            <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_User_Type" Association="Self.FK_User_User_Type">
+            <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InsuranceCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Insurance_Manager">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone_Number" Type="Int64" Nullable="false" />
+          <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="M_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Insurance_Policy">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Insurance_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Insurance_Prize" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Insurance_Object" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Insurance_Case" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Insurance_Sum" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Date_Of_Conclusion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_Of_Registration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date_Start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_End" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Statuses" Relationship="Self.FK_Insurance_Policy_Statuses" FromRole="Insurance_Policy" ToRole="Statuses" />
+          <NavigationProperty Name="Type_Insurance" Relationship="Self.FK_Insurance_Policy_Type_Insurance" FromRole="Insurance_Policy" ToRole="Type_Insurance" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Insurance_Policy_User" FromRole="Insurance_Policy" ToRole="User" />
+          <NavigationProperty Name="User_Type" Relationship="Self.FK_Insurance_Policy_User_Type" FromRole="Insurance_Policy" ToRole="User_Type" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Insurance_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Insurance_Object" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Filing_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Type_Insurance" Relationship="Self.FK_Order_Type_Insurance" FromRole="Order" ToRole="Type_Insurance" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="User_Type" Relationship="Self.FK_Order_User_Type" FromRole="Order" ToRole="User_Type" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_Statuses" FromRole="Statuses" ToRole="Insurance_Policy" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Type_Insurance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Document_Path" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_Type_Insurance" FromRole="Type_Insurance" ToRole="Insurance_Policy" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Type_Insurance" FromRole="Type_Insurance" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone_Number" Type="Int64" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Payment_Account" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_User" FromRole="User" ToRole="Insurance_Policy" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Individual_User" Relationship="Self.FK_Individual_User_User" FromRole="User" ToRole="Individual_User" />
+          <NavigationProperty Name="Legal_User" Relationship="Self.FK_Legal_User_User" FromRole="User" ToRole="Legal_User" />
+          <NavigationProperty Name="User_Type" Relationship="Self.FK_User_User_Type" FromRole="User" ToRole="User_Type" />
+        </EntityType>
+        <EntityType Name="User_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_User_Type" FromRole="User_Type" ToRole="Insurance_Policy" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_User_Type" FromRole="User_Type" ToRole="Order" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_User_Type" FromRole="User_Type" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Individual_User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="F_Name" />
+            <PropertyRef Name="L_Name" />
+            <PropertyRef Name="M_Name" />
+            <PropertyRef Name="Burth_Date" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="M_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Burth_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Individual_User_User" FromRole="Individual_User" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Legal_User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Legal_Address" />
+            <PropertyRef Name="MSRN" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Legal_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MSRN" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Legal_User_User" FromRole="Legal_User" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Insurance_Policy_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_Type_Insurance">
+          <End Role="Type_Insurance" Type="Self.Type_Insurance" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Insurance">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="Type_Insurance_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_User_Type">
+          <End Role="User_Type" Type="Self.User_Type" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Type_Insurance">
+          <End Role="Type_Insurance" Type="Self.Type_Insurance" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Insurance">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Type_Insurance_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User_Type">
+          <End Role="User_Type" Type="Self.User_Type" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Individual_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Individual_User" Type="Self.Individual_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Individual_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Legal_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Legal_User" Type="Self.Legal_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Legal_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_User_Type">
+          <End Role="User_Type" Type="Self.User_Type" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InsuranceCompanyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Insurance_Manager" EntityType="Self.Insurance_Manager" />
+          <EntitySet Name="Insurance_Policy" EntityType="Self.Insurance_Policy" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Type_Insurance" EntityType="Self.Type_Insurance" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="User_Type" EntityType="Self.User_Type" />
+          <EntitySet Name="Individual_User" EntityType="Self.Individual_User" />
+          <EntitySet Name="Legal_User" EntityType="Self.Legal_User" />
+          <AssociationSet Name="FK_Insurance_Policy_Statuses" Association="Self.FK_Insurance_Policy_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_Type_Insurance" Association="Self.FK_Insurance_Policy_Type_Insurance">
+            <End Role="Type_Insurance" EntitySet="Type_Insurance" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_User" Association="Self.FK_Insurance_Policy_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_User_Type" Association="Self.FK_Insurance_Policy_User_Type">
+            <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Type_Insurance" Association="Self.FK_Order_Type_Insurance">
+            <End Role="Type_Insurance" EntitySet="Type_Insurance" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User_Type" Association="Self.FK_Order_User_Type">
+            <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Individual_User_User" Association="Self.FK_Individual_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Individual_User" EntitySet="Individual_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Legal_User_User" Association="Self.FK_Legal_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Legal_User" EntitySet="Legal_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_User_Type" Association="Self.FK_User_User_Type">
+            <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище InsuranceCompanyModelContainer" CdmEntityContainer="InsuranceCompanyEntities">
+          <EntitySetMapping Name="Insurance_Manager">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Insurance_Manager">
+              <MappingFragment StoreEntitySet="Insurance_Manager">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Telephone_Number" ColumnName="Telephone_Number" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insurance_Policy">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Insurance_Policy">
+              <MappingFragment StoreEntitySet="Insurance_Policy">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Type_Insurance_Id" ColumnName="Type_Insurance_Id" />
+                <ScalarProperty Name="User_Type_Id" ColumnName="User_Type_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Insurance_Prize" ColumnName="Insurance_Prize" />
+                <ScalarProperty Name="Insurance_Object" ColumnName="Insurance_Object" />
+                <ScalarProperty Name="Insurance_Case" ColumnName="Insurance_Case" />
+                <ScalarProperty Name="Insurance_Sum" ColumnName="Insurance_Sum" />
+                <ScalarProperty Name="Date_Of_Conclusion" ColumnName="Date_Of_Conclusion" />
+                <ScalarProperty Name="Date_Of_Registration" ColumnName="Date_Of_Registration" />
+                <ScalarProperty Name="Date_Start" ColumnName="Date_Start" />
+                <ScalarProperty Name="Date_End" ColumnName="Date_End" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Type_Insurance_Id" ColumnName="Type_Insurance_Id" />
+                <ScalarProperty Name="User_Type_Id" ColumnName="User_Type_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Insurance_Object" ColumnName="Insurance_Object" />
+                <ScalarProperty Name="Filing_Date" ColumnName="Filing_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuses">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Statuses">
+              <MappingFragment StoreEntitySet="Statuses">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Insurance">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Type_Insurance">
+              <MappingFragment StoreEntitySet="Type_Insurance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Document_Path" ColumnName="Document_Path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="User_Type_Id" ColumnName="User_Type_Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Telephone_Number" ColumnName="Telephone_Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="Payment_Account" ColumnName="Payment_Account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Type">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.User_Type">
+              <MappingFragment StoreEntitySet="User_Type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Individual_User">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Individual_User">
+              <MappingFragment StoreEntitySet="Individual_User">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="Burth_Date" ColumnName="Burth_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Legal_User">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.Legal_User">
+              <MappingFragment StoreEntitySet="Legal_User">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Legal_Address" ColumnName="Legal_Address" />
+                <ScalarProperty Name="MSRN" ColumnName="MSRN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

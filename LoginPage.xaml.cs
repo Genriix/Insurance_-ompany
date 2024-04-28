@@ -24,7 +24,7 @@ namespace Insurance_сompany
         {
             InitializeComponent();
             CapOut.IsEnabled = false; // Делаем текстбокс не активным
-            CaptureIsGenerate = false; // Мы не проходили капчу
+            CaptchaIsGenerate = false; // Мы не проходили капчу
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -33,34 +33,60 @@ namespace Insurance_сompany
 
             /// Заполняем эклемпляр ошибками если есть
 
-            if (Login.Text.ToLower() != "user") errors.AppendLine("Неправильное имя пользователя");
-            if (Password.Password != "user") errors.AppendLine("Неправильный пароль");
-            if (CaptureIsGenerate == false) errors.AppendLine("Пройдите тест CAPTCHA");
-            else if (CheckSequence() != true) errors.AppendLine("Повторите тест CAPTCHA") ;
+            var converter = new System.Windows.Media.BrushConverter();
+            var lightGray = (Brush)converter.ConvertFromString("#FFABADB3");
+
+            if (Login.Text.ToLower() != "user")
+            {
+                Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Неправильное имя пользователя");
+            }
+            else { Login.BorderBrush = lightGray; }
+
+            if (Password.Password != "user")
+            {
+                Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Неправильный пароль"); 
+            }
+            else { Password.BorderBrush = lightGray; }
+
+            if (CaptchaIsGenerate == false) 
+            { 
+                CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Пройдите тест CAPTCHA"); 
+            }
+            else if (CheckSequence() != true) 
+            {
+                CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Повторите тест CAPTCHA"); 
+            }
+            else { CapIn.BorderBrush = lightGray; }
+
             if (errors.Length > 0) //Выводи ошибки если есть
             {
-                MessageBox.Show(errors.ToString(), "Пiшов нахуй москаль ебучий" );
+                MessageBox.Show(errors.ToString(), "Ошибка входа" );
                 CapOut.Text = "";
-                return; // Завершаем исполнение метода
+                CapIn.Text = "";
+                return; // Завершаем исполнение метода и дальше по коду не идём
             }
 
             /// Если всё ок, и мы не попались на ловушку ошибок, то отчищаем поля и переходим на следующую страницу
 
             Login.Text = "";
             Password.Password = "";
-            Manager.MainFrame.Navigate(new UserPage());
             CapOut.Text = "";
             CapIn.Text = "";
-            CaptureIsGenerate = false;
+            CaptchaIsGenerate = false;
+            Manager.MainFrame.Navigate(new UserPage());
         }
 
 
         /// Реализация капчи
 
-        private bool CaptureIsGenerate { get; set; } // Создаём приватное поле с типом данных true/false
+        private bool CaptchaIsGenerate { get; set; } // Создаём приватное поле с типом данных true/false
         private string GenerateRandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Создаём константу с буковами и цыферами
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789"; // Создаём константу с буковами и цыферами
             StringBuilder sb = new StringBuilder(); // Инициализируем экземпляр класса СтрингБилдер
             Random random = new Random(); // Инициализируем экземпляр класса Рандом
 
@@ -68,7 +94,7 @@ namespace Insurance_сompany
             {
                 sb.Append(chars[random.Next(chars.Length)]); // Добавляем в экземпляр класса стирнгБилдер заданное количество случайных цыфарок и буковок
             }
-            CaptureIsGenerate = true;
+            CaptchaIsGenerate = true;
             return sb.ToString(); // Возвращаем строковую случайную последовательность символов
         }
         private void GenerateRandomSequence(object sender, RoutedEventArgs e)
@@ -80,7 +106,7 @@ namespace Insurance_сompany
         private bool CheckSequence()
         {
             /// Сравниваем один тестбокс с другим
-            if (CapOut.Text == CapIn.Text && CaptureIsGenerate) {  return true; } // Если да, то возвращаем тру
+            if (CapOut.Text == CapIn.Text) {  return true; } // Если да, то возвращаем тру
             else { return false; } // Если нет, то нет
         }
     }
