@@ -9,7 +9,6 @@
       Title="LoginPage">
     
     <ScrollViewer>
-
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
 
         <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Height="294" Width="212" Fill="#FFEFEFEF" RadiusX="25" RadiusY="25"/>

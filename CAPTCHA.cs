@@ -9,6 +9,7 @@ namespace Insurance_сompany
 {
     internal class CAPTCHA
     {
+        /// Создаём поля для взаимодействия с капчей
         public string CapIn {  get; set; }
         public string CapOut { get; set; }
 

@@ -23,7 +23,7 @@ namespace Insurance_сompany
     {
         private CAPTCHA captcha = new CAPTCHA(); // Инициализируем экземпляр класса капча
 
-        public int user_id;
+        public int user_id; // Создаём Публичную переменную с id пользователя 
 
         public LoginPage()
         {
@@ -35,25 +35,29 @@ namespace Insurance_сompany
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder errors = new StringBuilder(); // Инициализируем экземпляр класса стрингБилдер
+
+            /// Создаём свой цвет для посветки текстбоксов
+
             var converter = new System.Windows.Media.BrushConverter();
             var lightGray = (Brush)converter.ConvertFromString("#FFABADB3");
 
 
-            /// Приравниваем публичные поля КапИн и КУапАут и 
+            /// Приравниваем публичные поля КапИн и КапАут и 
             /// нашим КапИн и КУапАут (текстбоксы вход и выход капчи)
 
             captcha.CapOut = CapOut.Text.ToString(); 
             captcha.CapIn = CapIn.Text.ToString();
 
 
-            string login = Login.Text, password = Password.Password;
+            string login = Login.Text, password = Password.Password; // Создаём переменные логина и пароля
 
+            /// Ищем пользователя по совпадению логина и пароля в таблице User
 
-            var user = InsuranceCompanyEntities.GetContext().User.FirstOrDefault(u => u.Login == login && u.Password == password);
+            var user = InsuranceCompanyEntities.GetContext().User.FirstOrDefault(u => u.Login == login && u.Password == password); 
 
             /// Заполняем эклемпляр ошибками если есть
 
-            if (user == null)
+            if (user == null) // Мы не нашли пользователя
             {
                 Login.BorderBrush = System.Windows.Media.Brushes.Red;
                 Password.BorderBrush = System.Windows.Media.Brushes.Red;
@@ -65,12 +69,12 @@ namespace Insurance_сompany
                 Password.BorderBrush = lightGray;
             }
 
-            if (captcha.CaptchaIsGenerate == false) 
+            if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
             { 
                 CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
                 errors.AppendLine("Пройдите тест CAPTCHA"); 
             }
-            else if (captcha.CheckSequence() != true) 
+            else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
             {
                 CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
                 errors.AppendLine("Повторите тест CAPTCHA"); 
@@ -87,13 +91,13 @@ namespace Insurance_сompany
 
             /// Если всё ок, и мы не попались на ловушку ошибок, то отчищаем поля и переходим на следующую страницу
 
+            user_id = user.id;
+            Manager.MainFrame.Navigate(new UserPage()); 
             Login.Text = "";
             Password.Password = "";
             CapOut.Text = "";
             CapIn.Text = "";
             captcha.CaptchaIsGenerate = false;
-            Manager.MainFrame.Navigate(new UserPage()); 
-            user_id = user.id;
         }
 
         private void GenerateRandomSequence(object sender, RoutedEventArgs e)
