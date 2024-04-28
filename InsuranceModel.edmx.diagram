@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6aa92c3cb35a41b39d08cd1a4576f4a9" Name="Diagram1">
+      <Diagram DiagramId="b08c02ea1a774f448882052cbcfe0998" Name="Diagram1">
         <EntityTypeShape EntityType="InsuranceCompanyModel.Insurance_Manager" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Insurance_Policy" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Order" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Statuses" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Insurance_Policy" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Order" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Statuses" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="InsuranceCompanyModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Type_Insurance" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.User" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.User_Type" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Individual_User" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Legal_User" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Type_Insurance" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.User" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.User_Type" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Individual_User" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Legal_User" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_Statuses" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_Type_Insurance" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_User" ManuallyRouted="false" />

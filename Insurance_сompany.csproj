@@ -64,61 +64,69 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BaseModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BaseModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="CAPTCHA.cs" />
     <Compile Include="Individual_User.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InsuranceModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsuranceModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InsuranceModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InsuranceModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InsuranceModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Insurance_Manager.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Insurance_Policy.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LegalRegistration.xaml.cs">
+      <DependentUpon>LegalRegistration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Legal_User.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manager.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Statuses.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Type_Insurance.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="User_Type.cs">
-      <DependentUpon>BaseModel.tt</DependentUpon>
+      <DependentUpon>InsuranceModel.tt</DependentUpon>
     </Compile>
+    <Page Include="LegalRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,12 +170,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="BaseModel.edmx">
+    <EntityDeploy Include="InsuranceModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BaseModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>InsuranceModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="BaseModel.edmx.diagram">
-      <DependentUpon>BaseModel.edmx</DependentUpon>
+    <None Include="InsuranceModel.edmx.diagram">
+      <DependentUpon>InsuranceModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -179,19 +187,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BaseModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BaseModel.Context.cs</LastGenOutput>
-      <DependentUpon>BaseModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="BaseModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseModel.edmx</DependentUpon>
-      <LastGenOutput>BaseModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="InsuranceModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InsuranceModel.edmx</DependentUpon>
+      <LastGenOutput>InsuranceModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="InsuranceModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InsuranceModel.edmx</DependentUpon>
+      <LastGenOutput>InsuranceModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

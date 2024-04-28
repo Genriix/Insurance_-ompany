@@ -16,12 +16,12 @@ using System.Windows.Shapes;
 namespace Insurance_сompany
 {
     /// <summary>
-    /// Логика взаимодействия для RegistrationPage.xaml
+    /// Логика взаимодействия для LegalRegistration.xaml
     /// </summary>
-    public partial class RegistrationPage : Page
+    public partial class LegalRegistration : Page
     {
         private CAPTCHA captcha = new CAPTCHA(); // Инициализируем экземпляр класса капча
-        public RegistrationPage()
+        public LegalRegistration()
         {
             InitializeComponent();
             CapOut.IsEnabled = false; // Делаем текстбокс не активным
@@ -59,7 +59,6 @@ namespace Insurance_сompany
                 return; // Завершаем исполнение метода и дальше по коду не идём
             }
 
-
             CapOut.Text = "";
             CapIn.Text = "";
             captcha.CaptchaIsGenerate = false;
@@ -70,5 +69,6 @@ namespace Insurance_сompany
         {
             CapOut.Text = captcha.GenerateRandomSequence(); //Записываем в наш текстбокс то, что скажет капча из экземпляра класса
         }
+
     }
 }

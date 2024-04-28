@@ -18,6 +18,7 @@ namespace Insurance_сompany
         public string F_Name { get; set; }
         public string L_Name { get; set; }
         public string M_Name { get; set; }
+        public long Passport_Num { get; set; }
         public System.DateTime Burth_Date { get; set; }
     
         public virtual User User { get; set; }

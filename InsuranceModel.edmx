@@ -13,12 +13,14 @@
             <PropertyRef Name="F_Name" />
             <PropertyRef Name="L_Name" />
             <PropertyRef Name="M_Name" />
+            <PropertyRef Name="Passport_Num" />
             <PropertyRef Name="Burth_Date" />
           </Key>
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="F_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="L_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="M_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Passport_Num" Type="bigint" Nullable="false" />
           <Property Name="Burth_Date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Insurance_Manager">
@@ -257,6 +259,7 @@
     [Individual_User].[F_Name] AS [F_Name], 
     [Individual_User].[L_Name] AS [L_Name], 
     [Individual_User].[M_Name] AS [M_Name], 
+    [Individual_User].[Passport_Num] AS [Passport_Num], 
     [Individual_User].[Burth_Date] AS [Burth_Date]
     FROM [dbo].[Individual_User] AS [Individual_User]</DefiningQuery>
           </EntitySet>
@@ -425,12 +428,14 @@
             <PropertyRef Name="F_Name" />
             <PropertyRef Name="L_Name" />
             <PropertyRef Name="M_Name" />
+            <PropertyRef Name="Passport_Num" />
             <PropertyRef Name="Burth_Date" />
           </Key>
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="M_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passport_Num" Type="Int64" Nullable="false" />
           <Property Name="Burth_Date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="User" Relationship="Self.FK_Individual_User_User" FromRole="Individual_User" ToRole="User" />
         </EntityType>
@@ -727,6 +732,7 @@
                 <ScalarProperty Name="F_Name" ColumnName="F_Name" />
                 <ScalarProperty Name="L_Name" ColumnName="L_Name" />
                 <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="Passport_Num" ColumnName="Passport_Num" />
                 <ScalarProperty Name="Burth_Date" ColumnName="Burth_Date" />
               </MappingFragment>
             </EntityTypeMapping>
