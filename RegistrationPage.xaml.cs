@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Insurance_сompany
 {
@@ -34,16 +35,32 @@ namespace Insurance_сompany
         {
             try
             {
+                /// Подключаемся к серверу
                 string connectionString = "Data Source=DESKTOP-5CVQU3F\\SQLEXPRESS;Initial Catalog=InsuranceCompany;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
-
-                    /// Ошибочки
-                    /*
+                    connection.Open(); // Открывает наш коннект
+                    
+                    /// Ошибочки, мотай до конца ошибочек
+                    
                     StringBuilder errors = new StringBuilder(); // Инициализируем экземпляр класса стрингБилдер
                     var converter = new System.Windows.Media.BrushConverter();
                     var lightGray = (Brush)converter.ConvertFromString("#FFABADB3");
+
+                    string query = "SELECT COUNT(*) FROM [User] WHERE Login = @Login";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Login", Login.Text);
+
+                        int count = (int)command.ExecuteScalar();
+
+                        if (count > 0)
+                        {
+                            Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                            errors.AppendLine("Логин занят другим пользователем");
+                        }
+                    }
 
                     if (Login.Text.Length < 8 && Password.Text.Length >= 8)
                     {
@@ -61,23 +78,6 @@ namespace Insurance_сompany
                         Login.BorderBrush = System.Windows.Media.Brushes.Red;
                         errors.AppendLine("Логин и пароль меньше 8 символов");
                     }
-
-
-                    string query = "SELECT COUNT(*) FROM User WHERE Login = @Login";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Login", Login.Text);
-
-                        int count = (int)command.ExecuteScalar();
-
-                        if (count > 0)
-                        {
-                            Login.BorderBrush = System.Windows.Media.Brushes.Red;
-                            errors.AppendLine("Логин занят другим пользователем");
-                        }
-                    }
-
 
                     bool containsDigit = Password.Text.Any(char.IsDigit);
                     bool containsLetter = Password.Text.Any(char.IsLetter);
@@ -152,35 +152,56 @@ namespace Insurance_сompany
                         CapIn.Text = "";
                         return; // Завершаем исполнение метода и дальше по коду не идём
                     }
-                    */
+                    
                     /// Ошибочки кончились
+                    
+                    // Создание SQL-запроса с параметрами, тут мы пишем запрос как в скрипте воркбенча
 
-                    // Создание SQL-запроса с параметрами
-                    string query = "INSERT INTO [User] (User_Type_Id, Login, Password, Telephone_Number) VALUES (@UserTypeId, @Login, @Password, @Telephone_Number)";
+                    int user_id;
+ 
+                    query = "INSERT INTO [User] (User_Type_Id, Login, Password, Telephone_Number) VALUES (@UserTypeId, @Login, @Password, @Telephone_Number); SELECT SCOPE_IDENTITY();";
 
                     // Подготовка команды с параметрами
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlCommand command = new SqlCommand(query, connection)) // Наполняем комманду переменными
                     {
-                        command.Parameters.AddWithValue("@UserTypeId", 1);
-                        command.Parameters.AddWithValue("@Login", Login.Text);
+                        command.Parameters.AddWithValue("@UserTypeId", 1); // Вместо ЮсерТайпИд пишем 1
+                        command.Parameters.AddWithValue("@Login", Login.Text); // Вместо Логин пишем то, что в Текстбоксе, и так далее
                         command.Parameters.AddWithValue("@Password", Password.Text);
                         command.Parameters.AddWithValue("@Telephone_Number", T_Number.Text);
 
                         // Выполнение команды
+                        user_id = Convert.ToInt32(command.ExecuteScalar());
+
+                        Console.WriteLine("Added new user with id: " + user_id);
+                    }
+
+                    query = "INSERT INTO Individual_User (User_Id, F_Name, L_Name, M_Name) VALUES (@UserId, @FName, @LName, @MName)";
+
+                    using (SqlCommand command = new SqlCommand(query, connection)) // Наполняем комманду переменными
+                    {
+                        command.Parameters.AddWithValue("@UserId", user_id); // Вместо ЮсерТайпИд пишем 1
+                        command.Parameters.AddWithValue("@FName", F_Name.Text); // Вместо Логин пишем то, что в Текстбоксе, и так далее
+                        command.Parameters.AddWithValue("@LName", L_Name.Text);
+                        command.Parameters.AddWithValue("@MName", M_Name.Text);
+
+                        // Выполнение команды
                         int rowsAffected = command.ExecuteNonQuery();
 
-                        Console.WriteLine($"Добавлено {rowsAffected} записей в таблицу IndividualUser.");
+                        Console.WriteLine($"Добавлено {rowsAffected} записей в таблицу Individual_User.");
                     }
                 }
                 MessageBox.Show("Вы успешно зарегистрировались!", "Успех!");
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); } // Если были ошибки, то мы их выводим
+
+            ///Отчищаем поля, идём назад, к авторизации
 
             CapOut.Text = "";
             CapIn.Text = "";
             captcha.CaptchaIsGenerate = false;
             Manager.MainFrame.GoBack();
         }
+
         private void GenerateRandomSequence(object sender, RoutedEventArgs e)
         {
             CapOut.Text = captcha.GenerateRandomSequence(); //Записываем в наш текстбокс то, что скажет капча из экземпляра класса
@@ -191,15 +212,3 @@ namespace Insurance_сompany
         }
     }
 }
-/*
- 
-  private static InsuranceCompanyEntities _context;
-  
-  public static InsuranceCompanyEntities GetContext()
-        {
-            if (_context == null)
-                _context = new InsuranceCompanyEntities();
-            return _context;
-        }
-
-  */

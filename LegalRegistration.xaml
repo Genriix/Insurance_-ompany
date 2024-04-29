@@ -22,7 +22,7 @@
                 <TextBlock Text="Повторте пароль:" Width="148" FontSize="16"/>
                 <PasswordBox Name="Rep_Password" Password="" Width="148" Margin="5" FontSize="16"/>
 
-                <TextBlock Text="Название организации:" Width="148" FontSize="16"/>
+                <TextBlock Text="Название организации:" Width="176" FontSize="16"/>
                 <TextBox Name="Org_Name" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Номер телефона:" Width="148" FontSize="16"/>

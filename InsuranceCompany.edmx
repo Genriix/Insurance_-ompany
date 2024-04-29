@@ -13,13 +13,13 @@
             <PropertyRef Name="F_Name" />
             <PropertyRef Name="L_Name" />
             <PropertyRef Name="M_Name" />
-            <PropertyRef Name="Burth_Date" />
           </Key>
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="F_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="L_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="M_Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Burth_Date" Type="int" Nullable="false" />
+          <Property Name="Burth_Date" Type="int" />
+          <Property Name="Passport_Num" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Insurance_Manager">
           <Key>
@@ -59,12 +59,11 @@
           <Key>
             <PropertyRef Name="User_Id" />
             <PropertyRef Name="Name" />
-            <PropertyRef Name="Legal_Address" />
             <PropertyRef Name="MSRN" />
           </Key>
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Legal_Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Legal_Address" Type="nvarchar(max)" />
           <Property Name="MSRN" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
@@ -113,7 +112,6 @@
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Telephone_Number" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" />
-          <Property Name="Passport_Num" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="User_Type">
           <Key>
@@ -291,7 +289,8 @@
     [Individual_User].[F_Name] AS [F_Name], 
     [Individual_User].[L_Name] AS [L_Name], 
     [Individual_User].[M_Name] AS [M_Name], 
-    [Individual_User].[Burth_Date] AS [Burth_Date]
+    [Individual_User].[Burth_Date] AS [Burth_Date], 
+    [Individual_User].[Passport_Num] AS [Passport_Num]
     FROM [dbo].[Individual_User] AS [Individual_User]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Legal_User" EntityType="Self.Legal_User" store:Type="Tables" store:Schema="dbo">
@@ -445,7 +444,6 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Telephone_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Passport_Num" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_User" FromRole="User" ToRole="Insurance_Policy" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Individual_User" Relationship="Self.FK_Individual_User_User" FromRole="User" ToRole="Individual_User" />
@@ -480,25 +478,24 @@
             <PropertyRef Name="F_Name" />
             <PropertyRef Name="L_Name" />
             <PropertyRef Name="M_Name" />
-            <PropertyRef Name="Burth_Date" />
           </Key>
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="M_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Burth_Date" Type="Int32" Nullable="false" />
+          <Property Name="Burth_Date" Type="Int32" />
+          <Property Name="Passport_Num" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Self.FK_Individual_User_User" FromRole="Individual_User" ToRole="User" />
         </EntityType>
         <EntityType Name="Legal_User">
           <Key>
             <PropertyRef Name="User_Id" />
             <PropertyRef Name="Name" />
-            <PropertyRef Name="Legal_Address" />
             <PropertyRef Name="MSRN" />
           </Key>
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Legal_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Legal_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MSRN" Type="Int64" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Legal_User_User" FromRole="Legal_User" ToRole="User" />
         </EntityType>
@@ -796,7 +793,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Telephone_Number" ColumnName="Telephone_Number" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Passport_Num" ColumnName="Passport_Num" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -826,6 +822,7 @@
                 <ScalarProperty Name="L_Name" ColumnName="L_Name" />
                 <ScalarProperty Name="M_Name" ColumnName="M_Name" />
                 <ScalarProperty Name="Burth_Date" ColumnName="Burth_Date" />
+                <ScalarProperty Name="Passport_Num" ColumnName="Passport_Num" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -30,7 +30,6 @@ namespace Insurance_сompany
         public string Password { get; set; }
         public string Telephone_Number { get; set; }
         public string Address { get; set; }
-        public string Passport_Num { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Insurance_Policy> Insurance_Policy { get; set; }

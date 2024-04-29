@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Insurance_сompany
     {
         private CAPTCHA captcha = new CAPTCHA(); // Инициализируем экземпляр класса капча
 
-        public int user_id; // Создаём Публичную переменную с id пользователя 
+        public static int user_id; // Создаём Публичную переменную с id пользователя 
 
         public LoginPage()
         {
@@ -34,70 +35,71 @@ namespace Insurance_сompany
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder errors = new StringBuilder(); // Инициализируем экземпляр класса стрингБилдер
-
-            /// Создаём свой цвет для посветки текстбоксов
-
-            var converter = new System.Windows.Media.BrushConverter();
-            var lightGray = (Brush)converter.ConvertFromString("#FFABADB3");
-
-
             /// Приравниваем публичные поля КапИн и КапАут и 
             /// нашим КапИн и КУапАут (текстбоксы вход и выход капчи)
 
-            captcha.CapOut = CapOut.Text.ToString(); 
-            captcha.CapIn = CapIn.Text.ToString();
-
-
-            string login = Login.Text, password = Password.Password; // Создаём переменные логина и пароля
-
-            /// Ищем пользователя по совпадению логина и пароля в таблице User
-
-            //var user = InsuranceCompanyEntities.GetContext().User.FirstOrDefault(u => u.Login == login && u.Password == password); 
-
-            /// Заполняем эклемпляр ошибками если есть
-
-            /*if (user == null) // Мы не нашли пользователя
+            string connectionString = "Data Source=DESKTOP-5CVQU3F\\SQLEXPRESS;Initial Catalog=InsuranceCompany;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                Login.BorderBrush = System.Windows.Media.Brushes.Red;
-                Password.BorderBrush = System.Windows.Media.Brushes.Red;
-                errors.AppendLine("Неправильное имя пользователя или пароль");
-            }
-            else 
-            { 
-                Login.BorderBrush = lightGray; 
-                Password.BorderBrush = lightGray;
-            }*/
+                connection.Open(); // Открывает наш коннект
+                StringBuilder errors = new StringBuilder(); // Инициализируем экземпляр класса стрингБилдер
+                var converter = new System.Windows.Media.BrushConverter();
+                var lightGray = (Brush)converter.ConvertFromString("#FFABADB3");
 
-            if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
-            { 
-                CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
-                errors.AppendLine("Пройдите тест CAPTCHA"); 
-            }
-            else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
-            {
-                CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
-                errors.AppendLine("Повторите тест CAPTCHA"); 
-            }
-            else { CapIn.BorderBrush = lightGray; }
+                string query = "SELECT id FROM [User] WHERE Login = @Login AND Password = @Password";
 
-            if (errors.Length > 0) //Выводи ошибки если есть
-            {
-                MessageBox.Show(errors.ToString(), "Ошибка входа" );
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Login", Login.Text);
+                    command.Parameters.AddWithValue("@Password", Password.Password);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            user_id = reader.GetInt32(0); // Получаем значение столбца id
+                        }
+                        else if (!reader.Read())
+                        {
+                            Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                            Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                            errors.AppendLine("Пользователь не найден");
+                        }
+                        else
+                        {
+                            Login.BorderBrush = lightGray;
+                            Password.BorderBrush = lightGray;
+                        }
+                    }
+
+                if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
+                { 
+                    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                    errors.AppendLine("Пройдите тест CAPTCHA"); 
+                }
+                else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
+                {
+                    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                    errors.AppendLine("Повторите тест CAPTCHA"); 
+                }
+                else { CapIn.BorderBrush = lightGray; }
+
+                if (errors.Length > 0) //Выводи ошибки если есть
+                {
+                    MessageBox.Show(errors.ToString(), "Ошибка входа" );
+                    CapOut.Text = "";
+                    CapIn.Text = "";
+                    return; // Завершаем исполнение метода и дальше по коду не идём
+                }
+
+                Login.Text = "";
+                Password.Password = "";
                 CapOut.Text = "";
                 CapIn.Text = "";
-                return; // Завершаем исполнение метода и дальше по коду не идём
+                captcha.CaptchaIsGenerate = false;
+                Manager.MainFrame.Navigate(new UserPage()); 
+                }
             }
-
-            /// Если всё ок, и мы не попались на ловушку ошибок, то отчищаем поля и переходим на следующую страницу
-
-            //user_id = user.id;
-            Manager.MainFrame.Navigate(new UserPage()); 
-            Login.Text = "";
-            Password.Password = "";
-            CapOut.Text = "";
-            CapIn.Text = "";
-            captcha.CaptchaIsGenerate = false;
         }
 
         private void GenerateRandomSequence(object sender, RoutedEventArgs e)

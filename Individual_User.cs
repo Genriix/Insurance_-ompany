@@ -18,7 +18,8 @@ namespace Insurance_сompany
         public string F_Name { get; set; }
         public string L_Name { get; set; }
         public string M_Name { get; set; }
-        public int Burth_Date { get; set; }
+        public Nullable<int> Burth_Date { get; set; }
+        public string Passport_Num { get; set; }
     
         public virtual User User { get; set; }
     }
