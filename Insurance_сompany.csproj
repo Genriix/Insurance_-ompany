@@ -66,62 +66,62 @@
     </ApplicationDefinition>
     <Compile Include="CAPTCHA.cs" />
     <Compile Include="Individual_User.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuranceModel.Context.cs">
+    <Compile Include="InsuranceCompany.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InsuranceModel.Context.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuranceModel.cs">
+    <Compile Include="InsuranceCompany.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
-    <Compile Include="InsuranceModel.Designer.cs">
+    <Compile Include="InsuranceCompany.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InsuranceModel.edmx</DependentUpon>
+      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
     </Compile>
     <Compile Include="Insurance_Manager.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="Insurance_Policy.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="LegalRegistration.xaml.cs">
       <DependentUpon>LegalRegistration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Legal_User.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manager.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Statuses.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="Type_Insurance.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="User_Type.cs">
-      <DependentUpon>InsuranceModel.tt</DependentUpon>
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Page Include="LegalRegistration.xaml">
       <SubType>Designer</SubType>
@@ -170,12 +170,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="InsuranceModel.edmx">
+    <EntityDeploy Include="InsuranceCompany.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InsuranceModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>InsuranceCompany.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="InsuranceModel.edmx.diagram">
-      <DependentUpon>InsuranceModel.edmx</DependentUpon>
+    <None Include="InsuranceCompany.edmx.diagram">
+      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -190,15 +190,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="InsuranceModel.Context.tt">
+    <Content Include="InsuranceCompany.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InsuranceModel.edmx</DependentUpon>
-      <LastGenOutput>InsuranceModel.Context.cs</LastGenOutput>
+      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
+      <LastGenOutput>InsuranceCompany.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="InsuranceModel.tt">
+    <Content Include="InsuranceCompany.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InsuranceModel.edmx</DependentUpon>
-      <LastGenOutput>InsuranceModel.cs</LastGenOutput>
+      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
+      <LastGenOutput>InsuranceCompany.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

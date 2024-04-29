@@ -16,7 +16,6 @@ namespace Insurance_сompany
     public partial class InsuranceCompanyEntities : DbContext
     {
         private static InsuranceCompanyEntities _context;
-
         public InsuranceCompanyEntities()
             : base("name=InsuranceCompanyEntities")
         {
@@ -28,7 +27,7 @@ namespace Insurance_сompany
                 _context = new InsuranceCompanyEntities();
             return _context;
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

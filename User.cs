@@ -30,7 +30,7 @@ namespace Insurance_сompany
         public long Telephone_Number { get; set; }
         public string Address { get; set; }
         public string Bank { get; set; }
-        public long Payment_Account { get; set; }
+        public string Payment_Account { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Insurance_Policy> Insurance_Policy { get; set; }

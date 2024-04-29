@@ -14,13 +14,13 @@
 
             <StackPanel>
                 <TextBlock Text="Введите логин:" Width="148" FontSize="16"/>
-                <TextBox Name="Login" Text="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="Login" Text="{Binding Login}" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Введите пароль:" Width="148" FontSize="16"/>
-                <PasswordBox Name="Password" Password="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="Password" Text="{Binding Password}" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Повторте пароль:" Width="148" FontSize="16"/>
-                <PasswordBox Name="Rep_Password" Password="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="Rep_Password" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Введите фамилию:" Width="148" FontSize="16"/>
                 <TextBox Name="L_Name" Text="" Width="148" Margin="5" FontSize="16"/>
@@ -32,7 +32,7 @@
                 <TextBox Name="M_Name" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Номер телефона:" Width="148" FontSize="16"/>
-                <TextBox Name="T_Number" Text="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="T_Number" Text="{Binding Telephone_Number}" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Дата рождения:" Width="148" FontSize="16"/>
                 <TextBox Name="B_Date" Text="" Width="148" Margin="5" FontSize="16"/>
@@ -41,13 +41,13 @@
                 <TextBox Name="N_Pass" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Адрес:" Width="148" FontSize="16"/>
-                <TextBox Name="Address" Text="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="Address" Text="{Binding Address}" Width="148" Margin="5" FontSize="16"/>
 
-                <TextBlock Text="Банк" Width="148" FontSize="16"/>
-                <TextBox Name="Bank" Text="" Width="148" Margin="5" FontSize="16"/>
+                <TextBlock Text="Банк:" Width="148" FontSize="16"/>
+                <TextBox Name="Bank" Text="{Binding Bank}" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Расчётный счёт:" Width="148" FontSize="16"/>
-                <TextBox Name="Pay_Acc" Text="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="Pay_Acc" Text="{Binding Payment_Account}" Width="148" Margin="5" FontSize="16"/>
 
                 <Grid>
                     <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Stroke="Black" Width="148" Fill="White"/>

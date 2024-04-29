@@ -21,7 +21,7 @@
           <Property Name="L_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="M_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Passport_Num" Type="bigint" Nullable="false" />
-          <Property Name="Burth_Date" Type="date" Nullable="false" />
+          <Property Name="Burth_Date" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Insurance_Manager">
           <Key>
@@ -115,7 +115,7 @@
           <Property Name="Telephone_Number" Type="bigint" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Bank" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Payment_Account" Type="bigint" Nullable="false" />
+          <Property Name="Payment_Account" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="User_Type">
           <Key>
@@ -405,7 +405,7 @@
           <Property Name="Telephone_Number" Type="Int64" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Bank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Payment_Account" Type="Int64" Nullable="false" />
+          <Property Name="Payment_Account" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_User" FromRole="User" ToRole="Insurance_Policy" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Individual_User" Relationship="Self.FK_Individual_User_User" FromRole="User" ToRole="Individual_User" />
@@ -436,7 +436,7 @@
           <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="M_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Passport_Num" Type="Int64" Nullable="false" />
-          <Property Name="Burth_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Burth_Date" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Individual_User_User" FromRole="Individual_User" ToRole="User" />
         </EntityType>
         <EntityType Name="Legal_User">
