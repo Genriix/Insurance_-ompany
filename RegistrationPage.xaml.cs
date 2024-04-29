@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace Insurance_сompany
 {
@@ -30,8 +31,6 @@ namespace Insurance_сompany
         public static int PassportNum { get; set; }
         public static int BurthDate { get; set; }
 
-
-
         private CAPTCHA captcha = new CAPTCHA(); // Инициализируем экземпляр класса капча
         public RegistrationPage()
         {
@@ -46,6 +45,88 @@ namespace Insurance_сompany
             var converter = new System.Windows.Media.BrushConverter();
             var lightGray = (Brush)converter.ConvertFromString("#FFABADB3");
 
+            var loginIsRegistred = InsuranceCompanyEntities.GetContext().User.FirstOrDefault(u => u.Login == Login.Text);
+
+
+            if (Login.Text.Length < 8 && Password.Text.Length >= 8)
+            {
+                Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Логин меньше 8 символов");
+            }
+            else if (Login.Text.Length >= 8 && Password.Text.Length < 8)
+            {
+                Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Пароль меньше 8 символов");
+            }
+
+            else if (Login.Text.Length < 8 && Password.Text.Length < 8)
+            {
+                Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Логин и пароль меньше 8 символов");
+            }
+
+            if (loginIsRegistred != null)
+            {
+                Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Логин занят другим пользователем");
+            }
+
+            bool containsDigit = Password.Text.Any(char.IsDigit);
+            bool containsLetter = Password.Text.Any(char.IsLetter);
+
+            if (!(containsDigit && containsLetter))
+            {
+                Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Пароль должен содержать латинские цифры и буквы");
+            }
+            else if (!IsAlphaNumeric(Password.Text))
+            {
+                Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Пароль должен состоять только из цифр и букв.");
+            }
+
+            if (Password.Text != Rep_Password.Text)
+            {
+                Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                Rep_Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Пароли должны совпадать");
+            }
+
+            if (string.IsNullOrEmpty(F_Name.Text))
+            {
+                F_Name.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Введите имя");
+            }
+            
+            else if (!Regex.IsMatch(F_Name.Text, @"^[А-Яа-я]+$"))
+            {
+                F_Name.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Имя должно содержать только буквы");
+            }
+
+            if (string.IsNullOrEmpty(L_Name.Text))
+            {
+                L_Name.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Введите фамилию");
+            }
+
+            else if (!Regex.IsMatch(L_Name.Text, @"^[А-Яа-я]+$"))
+            {
+                L_Name.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Фамилия должно содержать только буквы");
+            }
+
+            if (!Regex.IsMatch(M_Name.Text, @"^[А-Яа-я]+$") && !string.IsNullOrEmpty(M_Name.Text))
+            {
+                M_Name.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Отчество должно содержать только буквы");
+            }
+            
+            if (Pay_Acc.Text.Length != 20)
+            {
+                Pay_Acc.BorderBrush = System.Windows.Media.Brushes.Red;
+                errors.AppendLine("Расчётный счёт должен содержать 20 символов");
+            }
             /// Приравниваем публичные поля КапИн и КУапАут и 
             /// нашим КапИн и КУапАут (текстбоксы вход и выход качи)
 
@@ -66,7 +147,7 @@ namespace Insurance_сompany
 
             if (errors.Length > 0) //Выводи ошибки если есть
             {
-                MessageBox.Show(errors.ToString(), "Ошибка входа");
+                MessageBox.Show(errors.ToString(), "Ошибка регистрации");
                 CapOut.Text = "";
                 CapIn.Text = "";
                 return; // Завершаем исполнение метода и дальше по коду не идём
@@ -100,6 +181,10 @@ namespace Insurance_сompany
         private void GenerateRandomSequence(object sender, RoutedEventArgs e)
         {
             CapOut.Text = captcha.GenerateRandomSequence(); //Записываем в наш текстбокс то, что скажет капча из экземпляра класса
+        }
+        static bool IsAlphaNumeric(string input)
+        {
+            return Regex.IsMatch(input, @"^[a-zA-Z0-9]+$");
         }
     }
 
@@ -135,17 +220,14 @@ namespace Insurance_сompany
     }
 }
 /*
- * private static InsuranceCompanyEntities _context;
- * 
- * public static InsuranceCompanyEntities GetContext()
+ 
+  private static InsuranceCompanyEntities _context;
+  
+  public static InsuranceCompanyEntities GetContext()
         {
             if (_context == null)
                 _context = new InsuranceCompanyEntities();
             return _context;
         }
- * 
- * 
- * 
- * 
- * 
- * */
+
+  */
