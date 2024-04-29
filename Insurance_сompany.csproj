@@ -117,6 +117,9 @@
     <Compile Include="User.cs">
       <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserBank.cs">
+      <DependentUpon>InsuranceCompany.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>

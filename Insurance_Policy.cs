@@ -27,10 +27,12 @@ namespace Insurance_сompany
         public System.DateTime Date_Start { get; set; }
         public System.DateTime Date_End { get; set; }
         public int Status { get; set; }
+        public int User_Bank_Id { get; set; }
     
         public virtual Statuses Statuses { get; set; }
         public virtual Type_Insurance Type_Insurance { get; set; }
         public virtual User User { get; set; }
         public virtual User_Type User_Type { get; set; }
+        public virtual UserBank UserBank { get; set; }
     }
 }

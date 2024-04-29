@@ -13,14 +13,12 @@
             <PropertyRef Name="F_Name" />
             <PropertyRef Name="L_Name" />
             <PropertyRef Name="M_Name" />
-            <PropertyRef Name="Passport_Num" />
             <PropertyRef Name="Burth_Date" />
           </Key>
           <Property Name="User_Id" Type="int" Nullable="false" />
           <Property Name="F_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="L_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="M_Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Passport_Num" Type="bigint" Nullable="false" />
           <Property Name="Burth_Date" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Insurance_Manager">
@@ -53,6 +51,7 @@
           <Property Name="Date_Start" Type="date" Nullable="false" />
           <Property Name="Date_End" Type="date" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="User_Bank_Id" Type="int" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "InsuranceCompany.dbo.Legal_User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -112,10 +111,9 @@
           <Property Name="User_Type_Id" Type="int" Nullable="false" />
           <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Telephone_Number" Type="bigint" Nullable="false" />
-          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Bank" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Payment_Account" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telephone_Number" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Passport_Num" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="User_Type">
           <Key>
@@ -123,6 +121,15 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserBank">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Bank" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Payment_Account" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Individual_User_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -181,6 +188,18 @@
             </Principal>
             <Dependent Role="Insurance_Policy">
               <PropertyRef Name="User_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Policy_UserBank">
+          <End Role="UserBank" Type="Self.UserBank" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserBank">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="User_Bank_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -244,6 +263,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserBank_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserBank" Type="Self.UserBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserBank">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище InsuranceCompanyModelContainer">
           <EntitySet Name="Insurance_Manager" EntityType="Self.Insurance_Manager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Insurance_Policy" EntityType="Self.Insurance_Policy" Schema="dbo" store:Type="Tables" />
@@ -253,13 +284,13 @@
           <EntitySet Name="Type_Insurance" EntityType="Self.Type_Insurance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Type" EntityType="Self.User_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBank" EntityType="Self.UserBank" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Individual_User" EntityType="Self.Individual_User" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Individual_User].[User_Id] AS [User_Id], 
     [Individual_User].[F_Name] AS [F_Name], 
     [Individual_User].[L_Name] AS [L_Name], 
     [Individual_User].[M_Name] AS [M_Name], 
-    [Individual_User].[Passport_Num] AS [Passport_Num], 
     [Individual_User].[Burth_Date] AS [Burth_Date]
     FROM [dbo].[Individual_User] AS [Individual_User]</DefiningQuery>
           </EntitySet>
@@ -291,6 +322,10 @@
             <End Role="User_Type" EntitySet="User_Type" />
             <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
           </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_UserBank" Association="Self.FK_Insurance_Policy_UserBank">
+            <End Role="UserBank" EntitySet="UserBank" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
           <AssociationSet Name="FK_Legal_User_User" Association="Self.FK_Legal_User_User">
             <End Role="User" EntitySet="User" />
             <End Role="Legal_User" EntitySet="Legal_User" />
@@ -310,6 +345,10 @@
           <AssociationSet Name="FK_User_User_Type" Association="Self.FK_User_User_Type">
             <End Role="User_Type" EntitySet="User_Type" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBank_User" Association="Self.FK_UserBank_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserBank" EntitySet="UserBank" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -347,10 +386,12 @@
           <Property Name="Date_Start" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Date_End" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="User_Bank_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Statuses" Relationship="Self.FK_Insurance_Policy_Statuses" FromRole="Insurance_Policy" ToRole="Statuses" />
           <NavigationProperty Name="Type_Insurance" Relationship="Self.FK_Insurance_Policy_Type_Insurance" FromRole="Insurance_Policy" ToRole="Type_Insurance" />
           <NavigationProperty Name="User" Relationship="Self.FK_Insurance_Policy_User" FromRole="Insurance_Policy" ToRole="User" />
           <NavigationProperty Name="User_Type" Relationship="Self.FK_Insurance_Policy_User_Type" FromRole="Insurance_Policy" ToRole="User_Type" />
+          <NavigationProperty Name="UserBank" Relationship="Self.FK_Insurance_Policy_UserBank" FromRole="Insurance_Policy" ToRole="UserBank" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -402,15 +443,15 @@
           <Property Name="User_Type_Id" Type="Int32" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Telephone_Number" Type="Int64" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Bank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Payment_Account" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Passport_Num" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_User" FromRole="User" ToRole="Insurance_Policy" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Individual_User" Relationship="Self.FK_Individual_User_User" FromRole="User" ToRole="Individual_User" />
           <NavigationProperty Name="Legal_User" Relationship="Self.FK_Legal_User_User" FromRole="User" ToRole="Legal_User" />
           <NavigationProperty Name="User_Type" Relationship="Self.FK_User_User_Type" FromRole="User" ToRole="User_Type" />
+          <NavigationProperty Name="UserBank" Relationship="Self.FK_UserBank_User" FromRole="User" ToRole="UserBank" />
         </EntityType>
         <EntityType Name="User_Type">
           <Key>
@@ -422,20 +463,29 @@
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_User_Type" FromRole="User_Type" ToRole="Order" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_User_Type" FromRole="User_Type" ToRole="User" />
         </EntityType>
+        <EntityType Name="UserBank">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Bank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Payment_Account" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Insurance_Policy" Relationship="Self.FK_Insurance_Policy_UserBank" FromRole="UserBank" ToRole="Insurance_Policy" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserBank_User" FromRole="UserBank" ToRole="User" />
+        </EntityType>
         <EntityType Name="Individual_User">
           <Key>
             <PropertyRef Name="User_Id" />
             <PropertyRef Name="F_Name" />
             <PropertyRef Name="L_Name" />
             <PropertyRef Name="M_Name" />
-            <PropertyRef Name="Passport_Num" />
             <PropertyRef Name="Burth_Date" />
           </Key>
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="M_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Passport_Num" Type="Int64" Nullable="false" />
           <Property Name="Burth_Date" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Individual_User_User" FromRole="Individual_User" ToRole="User" />
         </EntityType>
@@ -500,6 +550,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Insurance_Policy_UserBank">
+          <End Role="UserBank" Type="Self.UserBank" Multiplicity="1" />
+          <End Role="Insurance_Policy" Type="Self.Insurance_Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserBank">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Insurance_Policy">
+              <PropertyRef Name="User_Bank_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Type_Insurance">
           <End Role="Type_Insurance" Type="Self.Type_Insurance" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -572,6 +634,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserBank_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserBank" Type="Self.UserBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserBank">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="InsuranceCompanyEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Insurance_Manager" EntityType="Self.Insurance_Manager" />
           <EntitySet Name="Insurance_Policy" EntityType="Self.Insurance_Policy" />
@@ -581,6 +655,7 @@
           <EntitySet Name="Type_Insurance" EntityType="Self.Type_Insurance" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="User_Type" EntityType="Self.User_Type" />
+          <EntitySet Name="UserBank" EntityType="Self.UserBank" />
           <EntitySet Name="Individual_User" EntityType="Self.Individual_User" />
           <EntitySet Name="Legal_User" EntityType="Self.Legal_User" />
           <AssociationSet Name="FK_Insurance_Policy_Statuses" Association="Self.FK_Insurance_Policy_Statuses">
@@ -597,6 +672,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Insurance_Policy_User_Type" Association="Self.FK_Insurance_Policy_User_Type">
             <End Role="User_Type" EntitySet="User_Type" />
+            <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Policy_UserBank" Association="Self.FK_Insurance_Policy_UserBank">
+            <End Role="UserBank" EntitySet="UserBank" />
             <End Role="Insurance_Policy" EntitySet="Insurance_Policy" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Type_Insurance" Association="Self.FK_Order_Type_Insurance">
@@ -622,6 +701,10 @@
           <AssociationSet Name="FK_User_User_Type" Association="Self.FK_User_User_Type">
             <End Role="User_Type" EntitySet="User_Type" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBank_User" Association="Self.FK_UserBank_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserBank" EntitySet="UserBank" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -660,6 +743,7 @@
                 <ScalarProperty Name="Date_Start" ColumnName="Date_Start" />
                 <ScalarProperty Name="Date_End" ColumnName="Date_End" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="User_Bank_Id" ColumnName="User_Bank_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -712,8 +796,7 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Telephone_Number" ColumnName="Telephone_Number" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Bank" ColumnName="Bank" />
-                <ScalarProperty Name="Payment_Account" ColumnName="Payment_Account" />
+                <ScalarProperty Name="Passport_Num" ColumnName="Passport_Num" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -725,6 +808,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserBank">
+            <EntityTypeMapping TypeName="InsuranceCompanyModel.UserBank">
+              <MappingFragment StoreEntitySet="UserBank">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="Payment_Account" ColumnName="Payment_Account" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Individual_User">
             <EntityTypeMapping TypeName="InsuranceCompanyModel.Individual_User">
               <MappingFragment StoreEntitySet="Individual_User">
@@ -732,7 +825,6 @@
                 <ScalarProperty Name="F_Name" ColumnName="F_Name" />
                 <ScalarProperty Name="L_Name" ColumnName="L_Name" />
                 <ScalarProperty Name="M_Name" ColumnName="M_Name" />
-                <ScalarProperty Name="Passport_Num" ColumnName="Passport_Num" />
                 <ScalarProperty Name="Burth_Date" ColumnName="Burth_Date" />
               </MappingFragment>
             </EntityTypeMapping>

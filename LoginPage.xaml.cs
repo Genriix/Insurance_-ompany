@@ -53,11 +53,11 @@ namespace Insurance_сompany
 
             /// Ищем пользователя по совпадению логина и пароля в таблице User
 
-            var user = InsuranceCompanyEntities.GetContext().User.FirstOrDefault(u => u.Login == login && u.Password == password); 
+            //var user = InsuranceCompanyEntities.GetContext().User.FirstOrDefault(u => u.Login == login && u.Password == password); 
 
             /// Заполняем эклемпляр ошибками если есть
 
-            if (user == null) // Мы не нашли пользователя
+            /*if (user == null) // Мы не нашли пользователя
             {
                 Login.BorderBrush = System.Windows.Media.Brushes.Red;
                 Password.BorderBrush = System.Windows.Media.Brushes.Red;
@@ -67,7 +67,7 @@ namespace Insurance_сompany
             { 
                 Login.BorderBrush = lightGray; 
                 Password.BorderBrush = lightGray;
-            }
+            }*/
 
             if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
             { 
@@ -91,7 +91,7 @@ namespace Insurance_сompany
 
             /// Если всё ок, и мы не попались на ловушку ошибок, то отчищаем поля и переходим на следующую страницу
 
-            user_id = user.id;
+            //user_id = user.id;
             Manager.MainFrame.Navigate(new UserPage()); 
             Login.Text = "";
             Password.Password = "";

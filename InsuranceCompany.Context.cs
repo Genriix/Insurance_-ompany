@@ -15,19 +15,11 @@ namespace Insurance_сompany
     
     public partial class InsuranceCompanyEntities : DbContext
     {
-        private static InsuranceCompanyEntities _context;
         public InsuranceCompanyEntities()
             : base("name=InsuranceCompanyEntities")
         {
         }
-
-        public static InsuranceCompanyEntities GetContext()
-        {
-            if (_context == null)
-                _context = new InsuranceCompanyEntities();
-            return _context;
-        }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -41,6 +33,7 @@ namespace Insurance_сompany
         public virtual DbSet<Type_Insurance> Type_Insurance { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<User_Type> User_Type { get; set; }
+        public virtual DbSet<UserBank> UserBank { get; set; }
         public virtual DbSet<Individual_User> Individual_User { get; set; }
         public virtual DbSet<Legal_User> Legal_User { get; set; }
     }

@@ -21,16 +21,16 @@ namespace Insurance_сompany
             this.Order = new HashSet<Order>();
             this.Individual_User = new HashSet<Individual_User>();
             this.Legal_User = new HashSet<Legal_User>();
+            this.UserBank = new HashSet<UserBank>();
         }
     
         public int id { get; set; }
         public int User_Type_Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public long Telephone_Number { get; set; }
+        public string Telephone_Number { get; set; }
         public string Address { get; set; }
-        public string Bank { get; set; }
-        public string Payment_Account { get; set; }
+        public string Passport_Num { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Insurance_Policy> Insurance_Policy { get; set; }
@@ -41,5 +41,7 @@ namespace Insurance_сompany
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Legal_User> Legal_User { get; set; }
         public virtual User_Type User_Type { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserBank> UserBank { get; set; }
     }
 }

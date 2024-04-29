@@ -12,14 +12,21 @@ namespace Insurance_сompany
     using System;
     using System.Collections.Generic;
     
-    public partial class Individual_User
+    public partial class UserBank
     {
-        public int User_Id { get; set; }
-        public string F_Name { get; set; }
-        public string L_Name { get; set; }
-        public string M_Name { get; set; }
-        public int Burth_Date { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserBank()
+        {
+            this.Insurance_Policy = new HashSet<Insurance_Policy>();
+        }
     
+        public int id { get; set; }
+        public string Bank { get; set; }
+        public string Payment_Account { get; set; }
+        public int User_Id { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Insurance_Policy> Insurance_Policy { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -4,27 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1af2e00cdd7c44568120d8ca63600e20" Name="Diagram1">
+      <Diagram DiagramId="ee4f61991f4845c78125c316789dbec0" Name="Diagram1">
         <EntityTypeShape EntityType="InsuranceCompanyModel.Insurance_Manager" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Insurance_Policy" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Order" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Statuses" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Insurance_Policy" Width="1.5" PointX="7.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Order" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Statuses" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="InsuranceCompanyModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Type_Insurance" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.User" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.User_Type" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Individual_User" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="InsuranceCompanyModel.Legal_User" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Type_Insurance" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.User" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.User_Type" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.UserBank" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Individual_User" Width="1.5" PointX="5.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="InsuranceCompanyModel.Legal_User" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_Statuses" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_Type_Insurance" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_User" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_User_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceCompanyModel.FK_Insurance_Policy_UserBank" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Order_Type_Insurance" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Order_User" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Order_User_Type" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Individual_User_User" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_Legal_User_User" ManuallyRouted="false" />
         <AssociationConnector Association="InsuranceCompanyModel.FK_User_User_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="InsuranceCompanyModel.FK_UserBank_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
