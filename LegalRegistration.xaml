@@ -32,7 +32,7 @@
                 <TextBox Name="Legal_Address" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Номер ОГРН:" Width="148" FontSize="16"/>
-                <TextBox Name="OSRN_Number" Text="" Width="148" Margin="5" FontSize="16"/>
+                <TextBox Name="MSRN_Number" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <Grid>
                     <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Stroke="Black" Width="148" Fill="White"/>

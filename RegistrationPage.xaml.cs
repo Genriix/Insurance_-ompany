@@ -36,8 +36,7 @@ namespace Insurance_сompany
             try
             {
                 /// Подключаемся к серверу
-                string connectionString = "Data Source=DESKTOP-5CVQU3F\\SQLEXPRESS;Initial Catalog=InsuranceCompany;Integrated Security=True";
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(Manager.connectionString))
                 {
                     connection.Open(); // Открывает наш коннект
                     
@@ -62,38 +61,38 @@ namespace Insurance_сompany
                         }
                     }
 
-                    if (Login.Text.Length < 8 && Password.Text.Length >= 8)
+                    if (Login.Text.Length < 8 && Password.Password.Length >= 8)
                     {
                         Login.BorderBrush = System.Windows.Media.Brushes.Red;
                         errors.AppendLine("Логин меньше 8 символов");
                     }
-                    else if (Login.Text.Length >= 8 && Password.Text.Length < 8)
+                    else if (Login.Text.Length >= 8 && Password.Password.Length < 8)
                     {
                         Login.BorderBrush = System.Windows.Media.Brushes.Red;
                         errors.AppendLine("Пароль меньше 8 символов");
                     }
 
-                    else if (Login.Text.Length < 8 && Password.Text.Length < 8)
+                    else if (Login.Text.Length < 8 && Password.Password.Length < 8)
                     {
                         Login.BorderBrush = System.Windows.Media.Brushes.Red;
                         errors.AppendLine("Логин и пароль меньше 8 символов");
                     }
 
-                    bool containsDigit = Password.Text.Any(char.IsDigit);
-                    bool containsLetter = Password.Text.Any(char.IsLetter);
+                    bool containsDigit = Password.Password.Any(char.IsDigit);
+                    bool containsLetter = Password.Password.Any(char.IsLetter);
 
                     if (!(containsDigit && containsLetter))
                     {
                         Password.BorderBrush = System.Windows.Media.Brushes.Red;
                         errors.AppendLine("Пароль должен содержать латинские цифры и буквы");
                     }
-                    else if (!IsAlphaNumeric(Password.Text))
+                    else if (!IsAlphaNumeric(Password.Password))
                     {
                         Password.BorderBrush = System.Windows.Media.Brushes.Red;
                         errors.AppendLine("Пароль должен состоять только из цифр и букв.");
                     }
 
-                    if (Password.Text != Rep_Password.Text)
+                    if (Password.Password != Rep_Password.Password)
                     {
                         Password.BorderBrush = System.Windows.Media.Brushes.Red;
                         Rep_Password.BorderBrush = System.Windows.Media.Brushes.Red;
@@ -166,7 +165,7 @@ namespace Insurance_сompany
                     {
                         command.Parameters.AddWithValue("@UserTypeId", 1); // Вместо ЮсерТайпИд пишем 1
                         command.Parameters.AddWithValue("@Login", Login.Text); // Вместо Логин пишем то, что в Текстбоксе, и так далее
-                        command.Parameters.AddWithValue("@Password", Password.Text);
+                        command.Parameters.AddWithValue("@Password", Password.Password);
                         command.Parameters.AddWithValue("@Telephone_Number", T_Number.Text);
 
                         // Выполнение команды
@@ -196,8 +195,6 @@ namespace Insurance_сompany
 
             ///Отчищаем поля, идём назад, к авторизации
 
-            CapOut.Text = "";
-            CapIn.Text = "";
             captcha.CaptchaIsGenerate = false;
             Manager.MainFrame.GoBack();
         }

@@ -25,6 +25,7 @@ namespace Insurance_сompany
         private CAPTCHA captcha = new CAPTCHA(); // Инициализируем экземпляр класса капча
 
         public static int user_id; // Создаём Публичную переменную с id пользователя 
+        public static int manager_id;
 
         public LoginPage()
         {
@@ -38,8 +39,7 @@ namespace Insurance_сompany
             /// Приравниваем публичные поля КапИн и КапАут и 
             /// нашим КапИн и КУапАут (текстбоксы вход и выход капчи)
 
-            string connectionString = "Data Source=DESKTOP-5CVQU3F\\SQLEXPRESS;Initial Catalog=InsuranceCompany;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(Manager.connectionString))
             {
                 connection.Open(); // Открывает наш коннект
                 StringBuilder errors = new StringBuilder(); // Инициализируем экземпляр класса стрингБилдер
@@ -59,30 +59,72 @@ namespace Insurance_сompany
                         {
                             user_id = reader.GetInt32(0); // Получаем значение столбца id
                         }
-                        else if (!reader.Read())
-                        {
-                            Login.BorderBrush = System.Windows.Media.Brushes.Red;
-                            Password.BorderBrush = System.Windows.Media.Brushes.Red;
-                            errors.AppendLine("Пользователь не найден");
-                        }
                         else
                         {
                             Login.BorderBrush = lightGray;
                             Password.BorderBrush = lightGray;
                         }
                     }
+                    query = "SELECT id FROM Insurance_Manager WHERE Login = @Login AND Password = @Password";
+                    using (SqlCommand command2 = new SqlCommand(query, connection))
+                    {
+                        command2.Parameters.AddWithValue("@Login", Login.Text);
+                        command2.Parameters.AddWithValue("@Password", Password.Password);
 
-                if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
-                { 
-                    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
-                    errors.AppendLine("Пройдите тест CAPTCHA"); 
-                }
-                else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
-                {
-                    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
-                    errors.AppendLine("Повторите тест CAPTCHA"); 
-                }
-                else { CapIn.BorderBrush = lightGray; }
+                        using (SqlDataReader reader2 = command2.ExecuteReader())
+                        {
+                            if (reader2.Read())
+                            {
+                                manager_id = reader2.GetInt32(0); // Получаем значение столбца id
+
+
+                                //if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
+                                //{ 
+                                //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                                //    errors.AppendLine("Пройдите тест CAPTCHA"); 
+                                //}
+                                //else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
+                                //{
+                                //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                                //    errors.AppendLine("Повторите тест CAPTCHA"); 
+                                //}
+                                //else { CapIn.BorderBrush = lightGray; }
+
+
+                                Login.Text = "";
+                                Password.Password = "";
+                                CapOut.Text = "";
+                                CapIn.Text = "";
+                                captcha.CaptchaIsGenerate = false;
+                                Manager.MainFrame.Navigate(new ManagerPage());
+                                return;
+                            }
+                            else if (!reader2.Read())
+                            {
+                                Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                                Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                                errors.AppendLine("Пользователь не найден");
+                            }
+                            else
+                            {
+                                Login.BorderBrush = lightGray;
+                                Password.BorderBrush = lightGray;
+                            }
+
+                        }
+                    }
+
+                //if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
+                //{ 
+                //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                //    errors.AppendLine("Пройдите тест CAPTCHA"); 
+                //}
+                //else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
+                //{
+                //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                //    errors.AppendLine("Повторите тест CAPTCHA"); 
+                //}
+                //else { CapIn.BorderBrush = lightGray; }
 
                 if (errors.Length > 0) //Выводи ошибки если есть
                 {

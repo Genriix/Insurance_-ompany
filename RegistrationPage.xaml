@@ -17,10 +17,10 @@
                 <TextBox Name="Login" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Введите пароль:" Width="148" FontSize="16"/>
-                <TextBox Name="Password" Text="" Width="148" Margin="5" FontSize="16"/>
+                <PasswordBox Name="Password" Password="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Повторте пароль:" Width="148" FontSize="16"/>
-                <TextBox Name="Rep_Password" Text="" Width="148" Margin="5" FontSize="16"/>
+                <PasswordBox Name="Rep_Password" Password="" Width="148" Margin="5" FontSize="16"/>
 
                 <TextBlock Text="Введите фамилию:" Width="148" FontSize="16"/>
                 <TextBox Name="L_Name" Text="" Width="148" Margin="5" FontSize="16"/>
