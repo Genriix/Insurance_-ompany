@@ -1,0 +1,70 @@
+﻿<Page x:Class="Insurance_сompany.UserInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Insurance_сompany"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserInfoPage">
+
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="51*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="233*"/>
+                <ColumnDefinition Width="550*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Background="#FFEFEFEF" Grid.ColumnSpan="2">
+                <TextBlock Text="Личный кабинет" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            </Grid>
+
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="190" Height="242">
+                <TextBlock Text="Фамилия:" FontSize="16"/>
+                <TextBox x:Name="L_Name" Text="" FontSize="16" IsReadOnly="True"/>
+                <TextBlock Text="Имя:" FontSize="16"/>
+                <TextBox x:Name="F_Name" Text="" FontSize="16" IsReadOnly="True"/>
+                <TextBlock Text="Отчество:" FontSize="16"/>
+                <TextBox x:Name="M_Name" Text="" FontSize="16" IsReadOnly="True"/>
+                <TextBlock Text="Номер телефона" Margin="0,20,0,0" FontSize="16"/>
+                <TextBox x:Name="T_Number" Text="" FontSize="16" IsReadOnly="True"/>
+                <Button Content="Открыть всё" Name="ShowUserFullInfo" Click="ShowUserFullInfo_Click"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="504" Height="300">
+                <TextBlock Text="Мои полисы"/>
+                <DataGrid x:Name="InsurancePolicies" Height="125" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Тип" Binding="{Binding TypeName}" Width="100"/>
+                        <DataGridTextColumn Header="Дата заключения" Binding="{Binding DateOfConclusion}"  Width="100"/>
+                        <DataGridTextColumn Header="Объект" Binding="{Binding InsuranceObject}"  Width="100*"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}"  Width="100"/>
+                        <DataGridTemplateColumn Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Развернуть" Name="BtnShow" Click="BtnShow_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock Text="Мои заявки"/>
+                <DataGrid x:Name="Orders" Height="125" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Тип" Binding="{Binding Name}" Width="100"/>
+                        <DataGridTextColumn Header="Объект" Binding="{Binding Insurance_Object}"  Width="100*"/>
+                        <DataGridTextColumn Header="Дата отправки" Binding="{Binding Filing_Date}"  Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Page>

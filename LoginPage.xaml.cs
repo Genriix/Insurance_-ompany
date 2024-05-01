@@ -24,9 +24,9 @@ namespace Insurance_сompany
     {
         private CAPTCHA captcha = new CAPTCHA(); // Инициализируем экземпляр класса капча
 
-        public static int user_id; // Создаём Публичную переменную с id пользователя 
-        public static int manager_id;
-
+        public static int user_id = 0; // Создаём Публичную переменную с id пользователя 
+        public static int manager_id = 0;
+        private bool user_is_log_in;
         public LoginPage()
         {
             InitializeComponent();
@@ -58,59 +58,60 @@ namespace Insurance_сompany
                         if (reader.Read())
                         {
                             user_id = reader.GetInt32(0); // Получаем значение столбца id
-                        }
-                        else
-                        {
+                            user_is_log_in = true;
                             Login.BorderBrush = lightGray;
                             Password.BorderBrush = lightGray;
                         }
                     }
-                    query = "SELECT id FROM Insurance_Manager WHERE Login = @Login AND Password = @Password";
-                    using (SqlCommand command2 = new SqlCommand(query, connection))
+
+                    if (user_is_log_in == false)
                     {
-                        command2.Parameters.AddWithValue("@Login", Login.Text);
-                        command2.Parameters.AddWithValue("@Password", Password.Password);
-
-                        using (SqlDataReader reader2 = command2.ExecuteReader())
+                        query = "SELECT id FROM Insurance_Manager WHERE Login = @Login AND Password = @Password";
+                        using (SqlCommand command2 = new SqlCommand(query, connection))
                         {
-                            if (reader2.Read())
+                            command2.Parameters.AddWithValue("@Login", Login.Text);
+                            command2.Parameters.AddWithValue("@Password", Password.Password);
+
+                            using (SqlDataReader reader2 = command2.ExecuteReader())
                             {
-                                manager_id = reader2.GetInt32(0); // Получаем значение столбца id
+                                if (reader2.Read())
+                                {
+                                    manager_id = reader2.GetInt32(0); // Получаем значение столбца id
 
 
-                                //if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
-                                //{ 
-                                //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
-                                //    errors.AppendLine("Пройдите тест CAPTCHA"); 
-                                //}
-                                //else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
-                                //{
-                                //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
-                                //    errors.AppendLine("Повторите тест CAPTCHA"); 
-                                //}
-                                //else { CapIn.BorderBrush = lightGray; }
+                                    //if (captcha.CaptchaIsGenerate == false) // Капча не была сгенерирована
+                                    //{ 
+                                    //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                                    //    errors.AppendLine("Пройдите тест CAPTCHA"); 
+                                    //}
+                                    //else if (captcha.CheckSequence() != true) // Или капча была пройдена не верно
+                                    //{
+                                    //    CapIn.BorderBrush = System.Windows.Media.Brushes.Red;
+                                    //    errors.AppendLine("Повторите тест CAPTCHA"); 
+                                    //}
+                                    //else { CapIn.BorderBrush = lightGray; }
 
 
-                                Login.Text = "";
-                                Password.Password = "";
-                                CapOut.Text = "";
-                                CapIn.Text = "";
-                                captcha.CaptchaIsGenerate = false;
-                                Manager.MainFrame.Navigate(new ManagerPage());
-                                return;
+                                    Login.Text = "";
+                                    Password.Password = "";
+                                    CapOut.Text = "";
+                                    CapIn.Text = "";
+                                    captcha.CaptchaIsGenerate = false;
+                                    Manager.MainFrame.Navigate(new ManagerPage());
+                                    return;
+                                }
+                                else if (!reader2.Read())
+                                {
+                                    Login.BorderBrush = System.Windows.Media.Brushes.Red;
+                                    Password.BorderBrush = System.Windows.Media.Brushes.Red;
+                                    errors.AppendLine("Пользователь не найден");
+                                }
+                                else
+                                {
+                                    Login.BorderBrush = lightGray;
+                                    Password.BorderBrush = lightGray;
+                                }
                             }
-                            else if (!reader2.Read())
-                            {
-                                Login.BorderBrush = System.Windows.Media.Brushes.Red;
-                                Password.BorderBrush = System.Windows.Media.Brushes.Red;
-                                errors.AppendLine("Пользователь не найден");
-                            }
-                            else
-                            {
-                                Login.BorderBrush = lightGray;
-                                Password.BorderBrush = lightGray;
-                            }
-
                         }
                     }
 
@@ -139,6 +140,7 @@ namespace Insurance_сompany
                 CapOut.Text = "";
                 CapIn.Text = "";
                 captcha.CaptchaIsGenerate = false;
+                user_is_log_in = false;
                 Manager.MainFrame.Navigate(new UserPage()); 
                 }
             }

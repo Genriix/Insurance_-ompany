@@ -1,0 +1,45 @@
+﻿<Page x:Class="Insurance_сompany.CreateOrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Insurance_сompany"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreateOrderPage">
+
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="51*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="388"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Background="#FFEFEFEF" Grid.ColumnSpan="2">
+                <TextBlock Text="Заявка на консультацию" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0"/>
+            </Grid>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="338" Height="200">
+                <TextBlock Text="Выберите тип страховки"/>
+                <DataGrid x:Name="TypeInsurance"  AutoGenerateColumns="False" IsReadOnly="True" BorderThickness="0" SelectionMode="Single" FontSize="16">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}" Width="*" FontSize="16"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="248" Width="368">
+                <TextBlock ><Run Text="Введите данные об "/><LineBreak/><Run Text="объекте страхования ниже:"/></TextBlock>
+                <TextBox Name="Insurance_Object" Height="100" Margin="10"/>
+                <Button Name="BtnSave" Click="BtnSave_Click" Content="Записаться на консультацию" Width="256" Margin="0,15,0,0"/>
+            </StackPanel>
+
+
+
+        </Grid>
+    </ScrollViewer>
+</Page>

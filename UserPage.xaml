@@ -16,8 +16,8 @@
 
         <Grid Grid.Row="0" Background="#FFEFEFEF">
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                <TextBlock FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0"><Hyperlink NavigateUri="">Личный кабинет</Hyperlink></TextBlock>
-                <TextBlock FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0"><Hyperlink NavigateUri="">Консультация</Hyperlink></TextBlock>
+                <TextBlock FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0"><Hyperlink Name="UserIPage" Click="UserIPage_Click">Личный кабинет</Hyperlink></TextBlock>
+                <TextBlock FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0"><Hyperlink NavigateUri="CreateOrderPage.xaml">Консультация</Hyperlink></TextBlock>
             </StackPanel>
         </Grid>
         
