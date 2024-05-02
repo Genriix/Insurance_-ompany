@@ -53,7 +53,46 @@ namespace Insurance_сompany
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
 
+            using (SqlConnection connection = new SqlConnection(Manager.connectionString))
+            {
+                if (MessageBox.Show("Вы уверены, что хотите изменить даннные?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    connection.Open();
+                    string query = "" +
+                        "UPDATE Individual_User SET " +
+                        "F_Name = @FName, " +
+                        "L_Name = @LName, " +
+                        "M_Name = @MName, " +
+                        "Passport_Num = @PNum, " +
+                        "Burth_Date = @BDate " +
+                        "WHERE User_Id = @UserId;" +
+                        "UPDATE [User] SET " +
+                        "Login = @Login, " +
+                        "Password = @Password, " +
+                        "Telephone_Number = @TNum, " +
+                        "Address = @Address " +
+                        "WHERE id = @UserId;";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@FName", F_Name.Text);
+                        command.Parameters.AddWithValue("@LName", L_Name.Text);
+                        command.Parameters.AddWithValue("@MName", M_Name.Text);
+                        command.Parameters.AddWithValue("@Login", Login.Text);
+                        command.Parameters.AddWithValue("@TNum", T_Num.Text);
+                        command.Parameters.AddWithValue("@Address", Address.Text);
+                        command.Parameters.AddWithValue("@PNum", P_Num.Text);
+                        command.Parameters.AddWithValue("@BDate", B_Date.Text);
+                        command.Parameters.AddWithValue("@Password", Password.Password);
+                        command.Parameters.AddWithValue("@UserId", LoginPage.user_id);
+                        command.Parameters.AddWithValue("@id", LoginPage.user_id);
+
+                        command.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("Данные были обновлены!", "Успех!");
+                }
+            }
         }
     }
 }

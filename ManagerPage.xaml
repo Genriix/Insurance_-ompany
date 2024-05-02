@@ -9,6 +9,25 @@
       Title="ManagerPage">
 
     <Grid>
-        <TextBlock Text="Hello Manager"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="39*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="Orders" AutoGenerateColumns="False" IsReadOnly="True" Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Тип" Binding="{Binding Name}" Width="auto"/>
+                <DataGridTextColumn Header="Лицо" Binding="{Binding UserTypeName}"  Width="auto"/>
+                <DataGridTextColumn Header="Объект" Binding="{Binding Insurance_Object}"  Width="auto"/>
+                <DataGridTextColumn Header="Дата отправки" Binding="{Binding Filing_Date}"  Width="auto"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Развернуть" Name="BtnShow" Click="BtnShow_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

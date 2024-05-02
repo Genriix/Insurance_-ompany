@@ -86,38 +86,11 @@
     <Compile Include="FullIndividualUserInfo.xaml.cs">
       <DependentUpon>FullIndividualUserInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Individual_User.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="InsuranceCompany.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InsuranceCompany.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="InsuranceCompany.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="InsuranceCompany.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Insurance_Manager.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Insurance_Policy.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
     <Compile Include="LegalRegistration.xaml.cs">
       <DependentUpon>LegalRegistration.xaml</DependentUpon>
     </Compile>
     <Compile Include="LegalUserInfoPage.xaml.cs">
       <DependentUpon>LegalUserInfoPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Legal_User.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -126,35 +99,17 @@
     <Compile Include="ManagerPage.xaml.cs">
       <DependentUpon>ManagerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
+    <Compile Include="OrderPage.xaml.cs">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Statuses.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Type_Insurance.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserBank.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Compile Include="UserInfoPage.xaml.cs">
       <DependentUpon>UserInfoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="User_Type.cs">
-      <DependentUpon>InsuranceCompany.tt</DependentUpon>
     </Compile>
     <Page Include="CreateOrderPage.xaml">
       <SubType>Designer</SubType>
@@ -192,6 +147,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="OrderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RegistrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,13 +182,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="InsuranceCompany.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InsuranceCompany.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="InsuranceCompany.edmx.diagram">
-      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -241,18 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="InsuranceCompany.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
-      <LastGenOutput>InsuranceCompany.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="InsuranceCompany.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InsuranceCompany.edmx</DependentUpon>
-      <LastGenOutput>InsuranceCompany.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

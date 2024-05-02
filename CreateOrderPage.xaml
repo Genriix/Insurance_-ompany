@@ -32,9 +32,13 @@
                 </DataGrid>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="248" Width="368">
-                <TextBlock ><Run Text="Введите данные об "/><LineBreak/><Run Text="объекте страхования ниже:"/></TextBlock>
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="276" Width="368">
+                <TextBlock Text="Введите данные об объекте страхования"/>
                 <TextBox Name="Insurance_Object" Height="100" Margin="10"/>
+                <TextBlock Text="Введите название своего банка"/>
+                <ComboBox Name="Bank" IsEditable="True" />
+                <TextBlock Text="Введите номер расчётного счёта"/>
+                <ComboBox Name="Account" IsEditable="True" />
                 <Button Name="BtnSave" Click="BtnSave_Click" Content="Записаться на консультацию" Width="256" Margin="0,15,0,0"/>
             </StackPanel>
 
