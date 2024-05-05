@@ -38,10 +38,23 @@ namespace Insurance_сompany
             {
                 BtnExit.Visibility = Visibility.Visible;
             }
+
             else
             {
                 BtnExit.Visibility = Visibility.Hidden;
             }
+
+            string currentPage = MainFrame.Content.GetType().Name;
+
+            if (currentPage != "UserPage" && currentPage != "ManagerPage")
+            {
+                BtnExit.Content = "Назад";
+            }
+            else
+            {
+                BtnExit.Content = "Выйти";
+            }
+
         }
     }
 }

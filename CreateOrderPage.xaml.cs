@@ -177,7 +177,7 @@ namespace Insurance_сompany
 
                     command.ExecuteNonQuery();
                     MessageBox.Show("Ваша заявка была принята в работу, скоро с вами свяжется менеджер", "Успех!");
-                    Manager.MainFrame.Navigate(new UserPage());
+                    Manager.MainFrame.GoBack();
                 }
             }
         }

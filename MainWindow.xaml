@@ -10,13 +10,13 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="46"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#FF239039"/>
-        <TextBlock Text="SaveYourMoney" FontSize="24" Margin="10,0,0,0" Foreground="White" FontFamily="Bahnschrift SemiBold Condensed" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Content="Выйти" Name="BtnExit" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" HorizontalAlignment="Right" Margin="0,0,10,0" Click="BtnExit_Click"/>
+        <TextBlock Text="SaveYourMoney" FontSize="24" Margin="13,0,0,0" Foreground="White" FontFamily="Bahnschrift SemiBold Condensed" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button Content="Выйти" Name="BtnExit" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" Click="BtnExit_Click" HorizontalAlignment="Right" Margin="0,0,10,0"/>
         <Frame NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Grid.Row="1" Name="MainFrame"/>
     </Grid>
 </Window>

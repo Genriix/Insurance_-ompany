@@ -10,9 +10,9 @@
 
     <ScrollViewer>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
-            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-10,0,0" Height="548" Width="212" Fill="#FFEFEFEF" RadiusX="25" RadiusY="25"/>
+            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="545" Width="212" Fill="#FFEFEFEF" RadiusX="25" RadiusY="25"/>
 
-            <StackPanel>
+            <StackPanel Height="547" VerticalAlignment="Center">
                 <TextBlock Text="Введите логин:" Width="148" FontSize="16"/>
                 <TextBox Name="Login" Text="" Width="148" Margin="5" FontSize="16"/>
 
@@ -35,10 +35,10 @@
                 <TextBox Name="MSRN_Number" Text="" Width="148" Margin="5" FontSize="16"/>
 
                 <Grid>
-                    <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Stroke="Black" Width="148" Fill="White"/>
+                    <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="117" Stroke="Black" Width="148" Fill="White"/>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Width="140">
-                        <Label Content="vladisCAPTCHA" Height="24" Width="92"/>
-                        <Button Content="Сгенерировать" Click="GenerateRandomSequence" FontSize="12" Height="18" Width="120" Margin="0,0,0,0"/>
+                        <Label Content="vladisCAPTCHA" Height="auto" Width="118"/>
+                        <Button Content="Сгенерировать" Click="GenerateRandomSequence" FontSize="12" Height="auto" Width="126" Margin="0,0,0,0"/>
                         <TextBox x:Name="CapOut" Height="21" TextWrapping="Wrap" Width="120" Margin="0,5,0,0"/>
                         <TextBox x:Name="CapIn" Height="20" TextWrapping="Wrap" Width="120" Margin="0,5,0,0"/>
                     </StackPanel>

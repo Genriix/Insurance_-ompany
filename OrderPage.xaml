@@ -9,6 +9,46 @@
       Title="OrderPage">
 
     <Grid>
-        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="10">
+            
+                <TextBlock Text="Тип страховго договора"/>
+                <TextBox Name="Type_Insurance_Id"/>
+            
+                <TextBlock Text="ФИО пользоввателя"/>
+                <TextBox Name="FLMNameUser"/>
+            
+                <TextBlock Text="Объект страхования"/>
+                <TextBox Name="Insurance_Object"/>
+
+
+                <TextBlock Text="Сумма оплаты страховки"/>
+                <TextBox Name="Insurance_Prize"/>
+
+                <TextBlock Text="Сумма выплаты при страховом случае"/>
+                <TextBox Name="Insurance_Sum"/>
+
+                <TextBlock Text="Дата начала действия"/>
+                <TextBox Name="Date_Start"/>
+
+                <TextBlock Text="Срок оформления полиса"/>
+                <TextBox Name="Date_Of_Conclusion"/>
+
+                <TextBlock Text="Банк пользователя"/>
+                <TextBox Name="UserBankId"/>
+
+                <TextBlock Text="Рассчётный счёт пользователя"/>
+                <TextBox Name="UserPaymentAccount"/>
+
+            </StackPanel>
+            <StackPanel Margin="10">
+                <TextBlock Text="Страховые случаи"/>
+                <TextBox Name="Insurance_Case" Height="292" />
+                
+                <Button Click="Button_Click" Content="Оформить страховой договор" Width="auto"/>
+                
+            </StackPanel>
+
+        </StackPanel>
     </Grid>
 </Page>

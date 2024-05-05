@@ -26,8 +26,8 @@
             <Grid>
                 <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Stroke="Black" Width="148" Fill="White"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Width="140">
-                    <Label Content="vladisCAPTCHA" Height="24" Width="92"/>
-                    <Button Content="Сгенерировать" Click="GenerateRandomSequence" FontSize="12" Height="18" Width="120" Margin="0,0,0,0"/>
+                        <Label Content="vladisCAPTCHA" Height="auto" Width="119"/>
+                    <Button Content="Сгенерировать" Click="GenerateRandomSequence" FontSize="12" Height="auto" Width="126" Margin="0,0,0,0"/>
                     <TextBox x:Name="CapOut" Height="21" TextWrapping="Wrap" Width="120" Margin="0,5,0,0"/>
                      <TextBox x:Name="CapIn" Height="20" TextWrapping="Wrap" Width="120" Margin="0,5,0,0"/>
                 </StackPanel>

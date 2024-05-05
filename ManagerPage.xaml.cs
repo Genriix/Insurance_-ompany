@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,7 @@ namespace Insurance_сompany
                 connection.Open();
                 string query = "" +
                     "SELECT " +
+                    "[Order].id, " +
                     "Type_Insurance.Name, " +
                     "User_Type.UserTypeName, " +
                     "[Order].Insurance_Object, " +
@@ -63,9 +65,15 @@ namespace Insurance_сompany
             }
         }
 
-        private void BtnShow_Click(object sender, RoutedEventArgs e)
+        public static string selectedOrder;
+        private void BtnOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Orders.SelectedItem != null)
+            {
+                DataRowView row = (DataRowView)Orders.SelectedItem;
+                selectedOrder = row["id"].ToString();
+            }
+            Manager.MainFrame.Navigate(new OrderPage());
         }
     }
 }
