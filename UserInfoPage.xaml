@@ -40,14 +40,15 @@
                 <TextBlock Text="Мои полисы"/>
                 <DataGrid x:Name="InsurancePolicies" Height="125" AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Тип" Binding="{Binding TypeName}" Width="150"/>
-                        <DataGridTextColumn Header="Объект" Binding="{Binding InsuranceObject}"  Width="100"/>
-                        <DataGridTextColumn Header="Дата заключения" Binding="{Binding DateOfConclusion}"  Width="100"/>
+                        <DataGridTextColumn Header="id" Binding="{Binding id}" Width="auto" Visibility="Hidden"/>
+                        <DataGridTextColumn Header="Тип" Binding="{Binding Name}" Width="150"/>
+                        <DataGridTextColumn Header="Объект" Binding="{Binding Insurance_Object}"  Width="100"/>
+                        <DataGridTextColumn Header="Дата заключения" Binding="{Binding Date_Of_Conclusion}"  Width="100"/>
                         <DataGridTextColumn Header="Статус" Binding="{Binding Status}"  Width="1*"/>
                         <DataGridTemplateColumn Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Развернуть" Name="BtnShow" Click="BtnShow_Click"/>
+                                    <Button Content="Экспорт в Word" Name="BtnShow" Click="BtnShow_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

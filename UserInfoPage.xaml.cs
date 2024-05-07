@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -15,27 +16,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace Insurance_сompany
 {
     /// <summary>
     /// Логика взаимодействия для UserInfoPage.xaml
     /// </summary>
-    public partial class UserInfoPage : Page
+    public partial class UserInfoPage : System.Windows.Controls.Page
     {
+        private string insuranceTypeID;
+        private static string selectedPolicy;
+
+
         public UserInfoPage()
         {
             InitializeComponent();
             using (SqlConnection connection = new SqlConnection(Manager.connectionString))
             {
                 connection.Open();
-                string query = "SELECT Type_Insurance.Name, Insurance_Policy.Date_Of_Conclusion, Insurance_Policy.Insurance_Object, Insurance_Policy.Status FROM Insurance_Policy JOIN Type_Insurance ON Insurance_Policy.Type_Insurance_Id = Type_Insurance.id WHERE User_Id = @userId";
+                string query = "SELECT Type_Insurance.Name, Insurance_Policy.id, Insurance_Policy.Date_Of_Conclusion, Insurance_Policy.Insurance_Object, Insurance_Policy.Status FROM Insurance_Policy JOIN Type_Insurance ON Insurance_Policy.Type_Insurance_Id = Type_Insurance.id WHERE User_Id = @userId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userId", LoginPage.user_id);
 
-                    using (DataTable dataTable = new DataTable())
+                    using (System.Data.DataTable dataTable = new System.Data.DataTable())
                     {
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
@@ -57,8 +63,7 @@ namespace Insurance_сompany
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userId", LoginPage.user_id);
-
-                    using (DataTable dataTable = new DataTable())
+                    using (System.Data.DataTable dataTable = new System.Data.DataTable())
                     {
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                         {
@@ -111,7 +116,60 @@ namespace Insurance_сompany
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
+            var application = new Word.Application();
+            Word.Document document = application.Documents.Add();
 
+
+            if (InsurancePolicies.SelectedItem != null)
+            {
+                DataRowView row = (DataRowView)InsurancePolicies.SelectedItem;
+                selectedPolicy = row["id"].ToString();
+                Console.WriteLine("id выбранного договора: " + selectedPolicy);
+            }
+
+
+
+            using (SqlConnection connection = new SqlConnection(Manager.connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT Type_Insurance_Id FROM Insurance_Policy WHERE id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", selectedPolicy);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        insuranceTypeID = reader.GetInt32(0).ToString();
+                        Console.WriteLine("id выбранного типа договора: " + insuranceTypeID);
+                    }
+                }
+
+                query = "SELECT Name FROM Type_Insurance WHERE id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", insuranceTypeID);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        Word.Paragraph paragraph = document.Paragraphs.Add();
+                        Word.Range range = paragraph.Range;
+                        range.Text = $"Страховой полис. Тип страхового договора: {reader["Name"]}";
+                    }
+                }
+
+
+                query = "select * from insurance_policy where user_id = @user_id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@user_id", LoginPage.user_id);
+
+                    Word.Paragraph paragraph = document.Paragraphs.Add();
+                    Word.Range range = paragraph.Range;
+                    range.Text = "Барабарабара береберебере";
+                }
+            }
+            application.Visible = true;
         }
 
         private void ShowUserFullInfo_Click(object sender, RoutedEventArgs e)

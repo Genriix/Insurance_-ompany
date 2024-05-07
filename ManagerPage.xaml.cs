@@ -75,5 +75,51 @@ namespace Insurance_сompany
             }
             Manager.MainFrame.Navigate(new OrderPage());
         }
+
+        private void UpdatePage_Click(object sender, RoutedEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(Manager.connectionString))
+            {
+                connection.Open();
+                string query = "" +
+                    "SELECT " +
+                    "[Order].id, " +
+                    "Type_Insurance.Name, " +
+                    "User_Type.UserTypeName, " +
+                    "[Order].Insurance_Object, " +
+                    "[Order].Filing_Date " +
+                    "FROM [Order] " +
+                    "JOIN Type_Insurance ON [Order].Type_Insurance_Id = Type_Insurance.id " +
+                    "JOIN [User] ON [Order].User_Id = [User].id " +
+                    "JOIN User_Type ON [User].User_Type_Id = User_Type.id;";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", LoginPage.user_id);
+
+                    using (DataTable dataTable = new DataTable())
+                    {
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                        {
+                            try
+                            {
+                                adapter.Fill(dataTable);
+
+                                Orders.ItemsSource = dataTable.DefaultView;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void BtnReports_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

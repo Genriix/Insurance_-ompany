@@ -26,6 +26,8 @@ namespace Insurance_сompany
         private string userId = "";
         private string typeInsuranceId = "";
         private string userBankId = "";
+        private string typeUserId = "";
+        private DateTime Date_Of_Registration;
 
         public OrderPage()
         {
@@ -38,6 +40,7 @@ namespace Insurance_сompany
                     "[Order].Type_Insurance_Id, " +
                     "[Order].Insurance_Object, " +
                     "[Order].User_Bank_Id, " +
+                    "[Order].Filing_Date, " +
                     "[User].id " +
                     "FROM [Order] " +
                     "JOIN [User] " +
@@ -54,6 +57,7 @@ namespace Insurance_сompany
                             typeInsuranceId = reader["Type_Insurance_Id"].ToString();
                             Insurance_Object.Text = reader["Insurance_Object"].ToString();
                             userBankId = reader["User_Bank_Id"].ToString();
+                            Date_Of_Registration = Convert.ToDateTime(reader["Filing_Date"]);
                             userId = reader["id"].ToString();
                         }
                     }
@@ -77,7 +81,27 @@ namespace Insurance_сompany
                     }
                 }
 
-                try
+
+                query = "" +
+                    "SELECT " +
+                    "User_Type_Id " +
+                    "FROM [User] " +
+                    "WHERE id = @userId";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            typeUserId = reader["User_Type_Id"].ToString();
+                        }
+                    }
+                }
+
+                if (typeUserId == "1") 
                 {
                     query = "" +
                         "SELECT " +
@@ -99,8 +123,8 @@ namespace Insurance_сompany
                         }
                     }
                 }
-                catch 
-                {
+                else if (typeUserId == "2") 
+                { 
                     query = "" +
                         "SELECT " +
                         "Name " +
@@ -144,70 +168,120 @@ namespace Insurance_сompany
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //using (SqlConnection connection = new SqlConnection(Manager.connectionString))
-            //{
-            //    connection.Open();
 
-            //    string query = "INSERT INTO " +
-            //        "Insurance_Policy " +
-            //        "(" +
-            //        "Type_Insurance_Id, " +
-            //        "User_Type_Id, " +
-            //        "User_Id, " +
-            //        "Insurance_Prize, " +
-            //        "Insurance_Object, " +
-            //        "Insurance_Case, " +
-            //        "Insurance_Sum, " +
-            //        "Date_Of_Conclusion, " +
-            //        "Date_Of_Registration, " +
-            //        "Date_Start, " +
-            //        "Date_End, " +
-            //        "Status, " +
-            //        "User_Bank_Id" +
-            //        ") " +
-            //        "VALUES " +
-            //        "(" +
-            //        "@Type_Insurance_Id" +
-            //        "@User_Type_Id" +
-            //        "@User_Id" +
-            //        "@Insurance_Prize" +
-            //        "@Insurance_Object" +
-            //        "@Insurance_Case" +
-            //        "@Insurance_Sum" +
-            //        "@Date_Of_Conclusion" +
-            //        "@Date_Of_Registration" +
-            //        "@Date_Start" +
-            //        "@Date_End" +
-            //        "@Status" +
-            //        "@User_Bank_Id" +
-            //        ")";
-            //    using (SqlCommand command = new SqlCommand(query, connection))
-            //    {
-            //        command.Parameters.AddWithValue("@Type_Insurance_Id", userBankId);
-            //        command.Parameters.AddWithValue("@User_Type_Id", userBankId);
-            //        command.Parameters.AddWithValue("@User_Id", userBankId);
-            //        command.Parameters.AddWithValue("@Insurance_Prize", userBankId);
-            //        command.Parameters.AddWithValue("@Insurance_Object", userBankId);
-            //        command.Parameters.AddWithValue("@Insurance_Case", userBankId);
-            //        command.Parameters.AddWithValue("@Insurance_Sum", userBankId);
-            //        command.Parameters.AddWithValue("@Date_Of_Conclusion", userBankId);
-            //        command.Parameters.AddWithValue("@Date_Of_Registration", userBankId);
-            //        command.Parameters.AddWithValue("@Date_Start", userBankId);
-            //        command.Parameters.AddWithValue("@Date_End", userBankId);
-            //        command.Parameters.AddWithValue("@Status", userBankId);
-            //        command.Parameters.AddWithValue("@User_Bank_Id", userBankId);
+            DateTime dateStart = Date_Start.SelectedDate.GetValueOrDefault();
+            int insurance_Id = 0;
 
-            //        using (SqlDataReader reader = command.ExecuteReader())
-            //        {
-            //            if (reader.Read())
-            //            {
-            //                UserBankId.Text = reader["Bank"].ToString();
-            //                UserPaymentAccount.Text = reader["Payment_Account"].ToString();
-            //            }
-            //        }
-            //    }
-            //}
 
+            using (SqlConnection connection = new SqlConnection(Manager.connectionString))
+            {
+                connection.Open();
+
+                string query = "INSERT INTO " +
+                    "Insurance_Policy " +
+                    "(" +
+                    "Type_Insurance_Id, " +
+                    "User_Type_Id, " +
+                    "User_Id, " +
+                    "Insurance_Prize, " +
+                    "Insurance_Object, " +
+                    "Insurance_Case, " +
+                    "Insurance_Sum, " +
+                    "Date_Of_Conclusion, " +
+                    "Date_Of_Registration, " +
+                    "Date_Start, " +
+                    "Date_End, " +
+                    "Status, " +
+                    "User_Bank_Id, " +
+                    "Manager_Id" +
+                    ") " +
+                    "VALUES " +
+                    "(" +
+                    "@Type_Insurance_Id, " +
+                    "@User_Type_Id, " +
+                    "@User_Id, " +
+                    "@Insurance_Prize, " +
+                    "@Insurance_Object, " +
+                    "@Insurance_Case, " +
+                    "@Insurance_Sum, " +
+                    "@Date_Of_Conclusion, " +
+                    "@Date_Of_Registration, " +
+                    "@Date_Start, " +
+                    "@Date_End, " +
+                    "@Status, " +
+                    "@User_Bank_Id, " +
+                    "@Manager_Id" +
+                    "); SELECT SCOPE_IDENTITY();";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Type_Insurance_Id", typeInsuranceId);
+                    command.Parameters.AddWithValue("@User_Type_Id", typeUserId);
+                    command.Parameters.AddWithValue("@User_Id", userId);
+                    command.Parameters.AddWithValue("@Insurance_Prize", Insurance_Prize.Text);
+                    command.Parameters.AddWithValue("@Insurance_Object", Insurance_Object.Text);
+                    command.Parameters.AddWithValue("@Insurance_Case", Insurance_Case.Text);
+                    command.Parameters.AddWithValue("@Insurance_Sum", Insurance_Sum.Text);
+                    command.Parameters.AddWithValue("@Date_Of_Conclusion", DateTime.Now);
+                    command.Parameters.AddWithValue("@Date_Of_Registration", Date_Of_Registration);
+                    command.Parameters.AddWithValue("@Date_Start", dateStart);
+                    command.Parameters.AddWithValue("@Date_End", dateStart.AddMonths(int.Parse(Date_Of_Conclusion.Text)));
+                    command.Parameters.AddWithValue("@Status", 1);
+                    command.Parameters.AddWithValue("@User_Bank_Id", userBankId);
+                    command.Parameters.AddWithValue("@Manager_Id", LoginPage.manager_id);
+
+                    insurance_Id = Convert.ToInt32(command.ExecuteScalar());
+
+                    command.ExecuteNonQuery();
+                }
+
+                query = "DELETE FROM [Order] WHERE id = @orderId;";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@orderId", ManagerPage.selectedOrder);
+
+                    command.ExecuteNonQuery();
+                }
+                query = "INSERT INTO Reports (Manager_Id, Date_Operation, Id_Opeation, Id_Policy) VALUES (@Manager_Id, @Date_Operation, 1, @Id_Policy)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Manager_Id", LoginPage.manager_id);
+                    command.Parameters.AddWithValue("@Date_Operation", DateTime.Now);
+                    command.Parameters.AddWithValue("@Id_Policy", insurance_Id);
+
+                    command.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Страховой полис офрмлен", "Успех!");
+                Manager.MainFrame.GoBack();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(Manager.connectionString))
+            {
+                connection.Open();
+
+                string query = query = "DELETE FROM [Order] WHERE id = @orderId;";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@orderId", ManagerPage.selectedOrder);
+
+                    command.ExecuteNonQuery();
+                }
+                query = "INSERT INTO Reports (Manager_Id, Date_Operation, Id_Opeation) VALUES (@Manager_Id, @Date_Operation, 2)";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Manager_Id", LoginPage.manager_id);
+                    command.Parameters.AddWithValue("@Date_Operation", DateTime.Now);
+
+                    command.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Заявка отклонена", "Успех!");
+                Manager.MainFrame.GoBack();
+            }
         }
     }
 }
