@@ -25,7 +25,7 @@ namespace Insurance_сompany
     /// </summary>
     public partial class UserInfoPage : System.Windows.Controls.Page
     {
-        private string insuranceTypeID;
+        private int insuranceTypeID;
         private static string selectedPolicy;
 
 
@@ -133,15 +133,18 @@ namespace Insurance_сompany
             {
                 connection.Open();
 
-                string query = "SELECT Type_Insurance_Id FROM Insurance_Policy WHERE id = @id";
+                string query = "SELECT Type_Insurance_Id FROM Insurance_Policy WHERE id = @Id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@id", selectedPolicy);
+                    command.Parameters.AddWithValue("@Id", selectedPolicy);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        insuranceTypeID = reader.GetInt32(0).ToString();
-                        Console.WriteLine("id выбранного типа договора: " + insuranceTypeID);
+                        if (reader.Read())
+                        {
+                            insuranceTypeID = reader.GetInt32(0);
+                            Console.WriteLine("id выбранного типа договора: " + insuranceTypeID);
+                        }
                     }
                 }
 
@@ -154,20 +157,23 @@ namespace Insurance_сompany
                     {
                         Word.Paragraph paragraph = document.Paragraphs.Add();
                         Word.Range range = paragraph.Range;
-                        range.Text = $"Страховой полис. Тип страхового договора: {reader["Name"]}";
+                        if (reader.Read())
+                        {
+                            range.Text = $"Страховой полис. Тип страхового договора: {reader["Name"]}";
+                        }
                     }
                 }
 
 
-                query = "select * from insurance_policy where user_id = @user_id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@user_id", LoginPage.user_id);
+                //query = "select * from insurance_policy where user_id = @user_id";
+                //using (SqlCommand command = new SqlCommand(query, connection))
+                //{
+                //    command.Parameters.AddWithValue("@user_id", LoginPage.user_id);
 
-                    Word.Paragraph paragraph = document.Paragraphs.Add();
-                    Word.Range range = paragraph.Range;
-                    range.Text = "Барабарабара береберебере";
-                }
+                //    Word.Paragraph paragraph = document.Paragraphs.Add();
+                //    Word.Range range = paragraph.Range;
+                //    range.Text = "Барабарабара береберебере";
+                //}
             }
             application.Visible = true;
         }
