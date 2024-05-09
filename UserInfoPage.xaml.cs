@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using Microsoft.Office.Core;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -116,15 +117,12 @@ namespace Insurance_сompany
 
         private void BtnShow_Click(object sender, RoutedEventArgs e)
         {
-            var application = new Word.Application();
-            Word.Document document = application.Documents.Add();
 
 
             if (InsurancePolicies.SelectedItem != null)
             {
                 DataRowView row = (DataRowView)InsurancePolicies.SelectedItem;
                 selectedPolicy = row["id"].ToString();
-                Console.WriteLine("id выбранного договора: " + selectedPolicy);
             }
 
 
@@ -133,49 +131,63 @@ namespace Insurance_сompany
             {
                 connection.Open();
 
-                string query = "SELECT Type_Insurance_Id FROM Insurance_Policy WHERE id = @Id";
+                Word.Application application = new Word.Application();
+                Document document = application.Documents.Add();
+                document.Paragraphs.SpaceAfter = 0;
+                document.Paragraphs.LineSpacingRule = WdLineSpacing.wdLineSpace1pt5;
+
+                Word.Paragraph paragraph = document.Paragraphs.Add();
+                Range range = paragraph.Range;
+                range.Font.Name = "Times New Roman";
+                range.Font.Bold = 1;
+                range.Font.Size = 26;
+                range.Text = $"Страховой полис";
+                range.InsertParagraphAfter();
+                range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+                Word.Paragraph paragraph0 = document.Paragraphs.Add();
+                Range range0 = paragraph0.Range;
+                range0.Font.Name = "Times New Roman";
+                range0.Font.Bold = 0;
+                range0.Font.Size = 14;
+
+                string query = "" +
+                    "SELECT " +
+                    "User_Type.UserTypeName, " +
+                    "Insurance_Policy.User_Type_Id, " +
+                    "Type_Insurance.Name, " +
+                    "Insurance_Policy.Type_Insurance_Id " +
+                    "FROM " +
+                    "Insurance_Policy " +
+                    "JOIN " +
+                    "User_Type " +
+                    "ON " +
+                    "User_Type.id = Insurance_Policy.User_Type_Id " +
+                    "JOIN " +
+                    "Type_Insurance " +
+                    "ON " +
+                    "Type_Insurance.id = Insurance_Policy.Type_Insurance_Id " +
+                    "WHERE " +
+                    "Insurance_Policy.id = @selectedPolicy;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Id", selectedPolicy);
+                    command.Parameters.AddWithValue("@selectedPolicy", selectedPolicy);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            insuranceTypeID = reader.GetInt32(0);
-                            Console.WriteLine("id выбранного типа договора: " + insuranceTypeID);
+                            range0.Text = $"" +
+                                $"Тип страхователя: {reader["UserTypeName"]}.\n" +
+                                $"Тип страхового договора: {reader["Name"]}";
                         }
                     }
                 }
+                range0.InsertParagraphAfter();
+                range0.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
 
-                query = "SELECT Name FROM Type_Insurance WHERE id = @id";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@id", insuranceTypeID);
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        Word.Paragraph paragraph = document.Paragraphs.Add();
-                        Word.Range range = paragraph.Range;
-                        if (reader.Read())
-                        {
-                            range.Text = $"Страховой полис. Тип страхового договора: {reader["Name"]}";
-                        }
-                    }
-                }
-
-
-                //query = "select * from insurance_policy where user_id = @user_id";
-                //using (SqlCommand command = new SqlCommand(query, connection))
-                //{
-                //    command.Parameters.AddWithValue("@user_id", LoginPage.user_id);
-
-                //    Word.Paragraph paragraph = document.Paragraphs.Add();
-                //    Word.Range range = paragraph.Range;
-                //    range.Text = "Барабарабара береберебере";
-                //}
+                application.Visible = true;
             }
-            application.Visible = true;
         }
 
         private void ShowUserFullInfo_Click(object sender, RoutedEventArgs e)

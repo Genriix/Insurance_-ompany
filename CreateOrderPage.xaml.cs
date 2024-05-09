@@ -52,15 +52,20 @@ namespace Insurance_сompany
                     }
                 }
 
-                query = "SELECT Bank, Payment_Account FROM UserBank WHERE User_Id = @user_id";
+                query = "SELECT DISTINCT  Bank, Payment_Account FROM UserBank WHERE User_Id = @user_id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", LoginPage.user_id); 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        DataTable dataTable = new DataTable(); adapter.Fill(dataTable);
-                        Bank.ItemsSource = dataTable.AsEnumerable().Select(row => row.Field<string>("Bank")).ToList();
+                        DataTable dataTable = new DataTable(); 
+                        adapter.Fill(dataTable);
+                        IEnumerable<string> uniqueBanks = dataTable.AsEnumerable()
+                                .Select(row => row.Field<string>("Bank"))
+                                .Distinct();
+
+                        Bank.ItemsSource = uniqueBanks.ToList();
                         Account.ItemsSource = dataTable.AsEnumerable().Select(row => row.Field<string>("Payment_Account")).ToList();
                     }
                 }

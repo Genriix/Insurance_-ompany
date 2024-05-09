@@ -212,7 +212,6 @@ namespace Insurance_сompany
                     "@User_Bank_Id, " +
                     "@Manager_Id" +
                     "); SELECT SCOPE_IDENTITY();";
-
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Type_Insurance_Id", typeInsuranceId);
@@ -231,8 +230,6 @@ namespace Insurance_сompany
                     command.Parameters.AddWithValue("@Manager_Id", LoginPage.manager_id);
 
                     insurance_Id = Convert.ToInt32(command.ExecuteScalar());
-
-                    command.ExecuteNonQuery();
                 }
 
                 query = "DELETE FROM [Order] WHERE id = @orderId;";
@@ -275,7 +272,6 @@ namespace Insurance_сompany
                 {
                     command.Parameters.AddWithValue("@Manager_Id", LoginPage.manager_id);
                     command.Parameters.AddWithValue("@Date_Operation", DateTime.Now);
-
                     command.ExecuteNonQuery();
                 }
 
