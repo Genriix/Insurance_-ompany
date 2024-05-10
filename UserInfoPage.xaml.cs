@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -125,8 +126,6 @@ namespace Insurance_сompany
                 selectedPolicy = row["id"].ToString();
             }
 
-
-
             using (SqlConnection connection = new SqlConnection(Manager.connectionString))
             {
                 connection.Open();
@@ -150,13 +149,24 @@ namespace Insurance_сompany
                 range0.Font.Name = "Times New Roman";
                 range0.Font.Bold = 0;
                 range0.Font.Size = 14;
+                range0.Text = $"№{selectedPolicy}\n";
+                range0.InsertParagraphAfter();
+                range0.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
+
+                Word.Paragraph paragraph1 = document.Paragraphs.Add();
+                Range range1 = paragraph1.Range;
+                range1.Font.Name = "Times New Roman";
+                range1.Font.Bold = 0;
+                range1.Font.Size = 14;
 
                 string query = "" +
                     "SELECT " +
                     "User_Type.UserTypeName, " +
-                    "Insurance_Policy.User_Type_Id, " +
+                    "Insurance_Policy.*, " +
                     "Type_Insurance.Name, " +
-                    "Insurance_Policy.Type_Insurance_Id " +
+                    "Individual_User.*, " +
+                    "UserBank.*, " +
+                    "Statuses.Status AS InsStatus " +
                     "FROM " +
                     "Insurance_Policy " +
                     "JOIN " +
@@ -167,6 +177,18 @@ namespace Insurance_сompany
                     "Type_Insurance " +
                     "ON " +
                     "Type_Insurance.id = Insurance_Policy.Type_Insurance_Id " +
+                    "JOIN " +
+                    "Individual_User " +
+                    "ON " +
+                    "Individual_User.User_Id = Insurance_Policy.User_Id " +
+                    "JOIN " +
+                    "UserBank " +
+                    "ON " +
+                    "UserBank.id = Insurance_Policy.User_Bank_Id " +
+                    "JOIN " +
+                    "Statuses " +
+                    "ON " +
+                    "Statuses.id = Insurance_Policy.Status " +
                     "WHERE " +
                     "Insurance_Policy.id = @selectedPolicy;";
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -177,16 +199,34 @@ namespace Insurance_сompany
                     {
                         if (reader.Read())
                         {
-                            range0.Text = $"" +
-                                $"Тип страхователя: {reader["UserTypeName"]}.\n" +
-                                $"Тип страхового договора: {reader["Name"]}";
+                            range1.Text = $"" +
+                                $"Тип страхователя: {reader["UserTypeName"]}\n" +
+                                $"Имя страхователя: {reader["L_Name"]} {reader["F_Name"]} {reader["M_Name"]}\n" +
+                                $"Тип страхового договора: {reader["Name"]}\n" +
+                                $"Объект страхования: {reader["Insurance_Object"]}\n" +
+                                $"Страховые случаи: {reader["Insurance_Case"]}\n" +
+                                $"Сумма выплаты по страховому случаю: {reader["Insurance_Sum"]}\n" +
+                                $"Дата регистрации: {reader["Date_Of_Registration"]}\n" +
+                                $"Дата заключения: {reader["Date_Of_Conclusion"]}\n" +
+                                $"Дата начала действия договора: {reader["Date_Start"]}\n" +
+                                $"Дата окончания действия договора: {reader["Date_End"]}\n" +
+                                $"Статус договора: {reader["InsStatus"]}\n" +
+                                $"Банк страхователя: {reader["Bank"]}\n" +
+                                $"Расчётный счёт страхователя: {reader["Payment_Account"]}\n" +
+                                $"";
                         }
                     }
                 }
-                range0.InsertParagraphAfter();
-                range0.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
+                range1.InsertParagraphAfter();
+                range1.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
 
                 application.Visible = true;
+
+                string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string filePath = System.IO.Path.Combine(myDocumentsPath, $"Страховой Полис №{selectedPolicy}.pdf");
+                document.SaveAs(filePath, Word.WdExportFormat.wdExportFormatPDF);
+                filePath = System.IO.Path.Combine(myDocumentsPath, $"Страховой Полис №{selectedPolicy}.docx");
+                document.SaveAs(filePath);
             }
         }
 

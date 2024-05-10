@@ -17,5 +17,7 @@
             <Setter Property="FontSize" Value="16"/>
         </Style>
 
+        <BitmapImage x:Key="AppIcon" UriSource="Properties/icon.ico" />
+
     </Application.Resources>
 </Application>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Insurance_сompany"
         mc:Ignorable="d"
-        Title="Insurance Company" Height="600" Width="1000"
+        Title="Insurance Company" Height="600" Width="1000" Icon="{StaticResource AppIcon}" MinWidth="400" MinHeight="300"
         >
     
     <Grid>
@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#FF239039"/>
-        <TextBlock Text="SaveYourMoney" FontSize="24" Margin="13,0,0,0" Foreground="White" FontFamily="Bahnschrift SemiBold Condensed" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBlock Text="InsuranceCompany" FontSize="24" Margin="13,0,0,0" Foreground="White" FontFamily="Bahnschrift SemiBold Condensed" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Button Content="Выйти" Name="BtnExit" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" Click="BtnExit_Click" HorizontalAlignment="Right" Margin="0,0,10,0"/>
         <Frame NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Grid.Row="1" Name="MainFrame"/>
     </Grid>
