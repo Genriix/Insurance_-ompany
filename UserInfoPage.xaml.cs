@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Word = Microsoft.Office.Interop.Word;
+using System.Diagnostics;
 
 namespace Insurance_сompany
 {
@@ -219,14 +220,12 @@ namespace Insurance_сompany
                 }
                 range1.InsertParagraphAfter();
                 range1.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
-
-                application.Visible = true;
-
                 string myDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string filePath = System.IO.Path.Combine(myDocumentsPath, $"Страховой Полис №{selectedPolicy}.pdf");
-                document.SaveAs(filePath, Word.WdExportFormat.wdExportFormatPDF);
-                filePath = System.IO.Path.Combine(myDocumentsPath, $"Страховой Полис №{selectedPolicy}.docx");
-                document.SaveAs(filePath);
+                string filePath = System.IO.Path.Combine(myDocumentsPath, $"Страховой_Полис_№{selectedPolicy}.pdf");
+                document.SaveAs(filePath, WdExportFormat.wdExportFormatPDF);
+                application.Quit(WdSaveOptions.wdDoNotSaveChanges);
+
+                Process.Start("cmd", $"/c start {filePath}");
             }
         }
 

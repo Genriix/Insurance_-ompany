@@ -48,7 +48,7 @@
                         <DataGridTemplateColumn Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Экспорт в Word" Name="BtnShow" Click="BtnShow_Click"/>
+                                    <Button Content="Открыть PDF" Name="BtnShow" Click="BtnShow_Click"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
