@@ -35,6 +35,7 @@ namespace Insurance_сompany
             using (SqlConnection connection = new SqlConnection(Manager.connectionString))
             {
                 connection.Open();
+
                 string query = "" +
                     "SELECT " +
                     "[Order].Type_Insurance_Id, " +

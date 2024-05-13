@@ -1,0 +1,63 @@
+﻿<Page x:Class="Insurance_сompany.PolicyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Insurance_сompany"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PolicyPage">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="10">
+
+                <TextBlock Text="Тип страховго договора"/>
+                <TextBox Name="Type_Insurance_Id" IsReadOnly="True"/>
+
+                <TextBlock Text="Тип пользователя"/>
+                <TextBox Name="User_Type" IsReadOnly="True"/>
+
+                <TextBlock Text="Имя юр./физ. лица"/>
+                <TextBox Name="FLMNameUser" IsReadOnly="True"/>
+
+                <TextBlock Text="Объект страхования"/>
+                <TextBox Name="Insurance_Object" IsReadOnly="True"/>
+
+                <TextBlock Text="Сумма оплаты страховки"/>
+                <TextBox Name="Insurance_Prize" IsReadOnly="True"/>
+
+                <TextBlock Text="Сумма выплаты при страховом случае"/>
+                <TextBox Name="Insurance_Sum" IsReadOnly="True"/>
+
+                <TextBlock Text="Дата регистрации"/>
+                <TextBox Name="Date_Of_Registration" IsReadOnly="True"/>
+
+                <TextBlock Text="Дата заключения"/>
+                <TextBox Name="Date_Of_Conclusion" IsReadOnly="True"/>
+
+                <TextBlock Text="Дата старта действия"/>
+                <TextBox Name="Date_Start" IsReadOnly="True"/>
+
+                <TextBlock Text="Дата окончания действия"/>
+                <TextBox Name="Date_End" IsReadOnly="True"/>
+
+                <TextBlock Text="Банк пользователя"/>
+                <TextBox Name="UserBankId" IsReadOnly="True"/>
+
+                <TextBlock Text="Рассчётный счёт пользователя"/>
+                <TextBox Name="UserPaymentAccount" IsReadOnly="True"/>
+
+            </StackPanel>
+            <StackPanel Margin="10">
+                <TextBlock Text="Страховые случаи"/>
+                <TextBox Name="Insurance_Case" Height="292" IsReadOnly="True"/>
+
+                <ComboBox x:Name="Statuses" Margin="10"/>
+                
+                <Button Click="Button_Click" Content="Сохранить изменения" Width="auto"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</Page>

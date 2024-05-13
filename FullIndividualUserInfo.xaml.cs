@@ -53,8 +53,6 @@ namespace Insurance_сompany
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-
             using (SqlConnection connection = new SqlConnection(Manager.connectionString))
             {
                 if (MessageBox.Show("Вы уверены, что хотите изменить даннные?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)

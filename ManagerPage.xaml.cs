@@ -43,8 +43,6 @@ namespace Insurance_сompany
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@userId", LoginPage.user_id);
-
                     using (DataTable dataTable = new DataTable())
                     {
                         using (SqlDataAdapter adapter = new SqlDataAdapter(command))
@@ -120,6 +118,11 @@ namespace Insurance_сompany
         private void BtnReports_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void PolicesPage_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new Polices());
         }
     }
 }

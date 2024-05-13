@@ -11,8 +11,9 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Content="Отчёты" Name="BtnReports" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" HorizontalAlignment="Left" Margin="151,-46,5,0" Click="BtnReports_Click"/>
-                <Button Content="Обновить" Name="UpdatePage" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" HorizontalAlignment="Left" Margin="5,-46,0,0" Click="UpdatePage_Click"/>
+                <Button Content="Отчёты" Name="BtnReports" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" HorizontalAlignment="Left" Margin="170,-46,5,0" Click="BtnReports_Click"/>
+                <Button Content="Обновить" Name="UpdatePage" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" HorizontalAlignment="Left" Margin="5,-46,5,0" Click="UpdatePage_Click"/>
+                <Button Content="Полисы" Name="PolicesPage" Background="White" FontFamily="Cascadia Code SemiBold" FontSize="16" Foreground="#FF5A5A5A" HorizontalAlignment="Left" Margin="5,-46,5,0" Click="PolicesPage_Click"/>
             </StackPanel>
             <DataGrid x:Name="Orders" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
                 <DataGrid.Columns>
